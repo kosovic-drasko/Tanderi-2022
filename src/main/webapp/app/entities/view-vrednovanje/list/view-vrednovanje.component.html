@@ -1,0 +1,164 @@
+<div>
+  <h2 id="page-heading" data-cy="ViewVrednovanjeHeading">
+    <span jhiTranslate="tenderApp.viewVrednovanje.home.title">View Vrednovanjes</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="tenderApp.viewVrednovanje.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-view-vrednovanje"
+        [routerLink]="['/view-vrednovanje/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="tenderApp.viewVrednovanje.home.createLabel"> Create a new View Vrednovanje </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="viewVrednovanjes?.length === 0">
+    <span jhiTranslate="tenderApp.viewVrednovanje.home.notFound">No viewVrednovanjes found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="viewVrednovanjes && viewVrednovanjes.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="sifraPostupka">
+            <span jhiTranslate="tenderApp.viewVrednovanje.sifraPostupka">Sifra Postupka</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="sifraPonude">
+            <span jhiTranslate="tenderApp.viewVrednovanje.sifraPonude">Sifra Ponude</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="brojPartije">
+            <span jhiTranslate="tenderApp.viewVrednovanje.brojPartije">Broj Partije</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="atc"><span jhiTranslate="tenderApp.viewVrednovanje.atc">Atc</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="inn"><span jhiTranslate="tenderApp.viewVrednovanje.inn">Inn</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="zasticeniNaziv">
+            <span jhiTranslate="tenderApp.viewVrednovanje.zasticeniNaziv">Zasticeni Naziv</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="farmaceutskiOblikLijeka">
+            <span jhiTranslate="tenderApp.viewVrednovanje.farmaceutskiOblikLijeka">Farmaceutski Oblik Lijeka</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="jacinaLijeka">
+            <span jhiTranslate="tenderApp.viewVrednovanje.jacinaLijeka">Jacina Lijeka</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="pakovanje">
+            <span jhiTranslate="tenderApp.viewVrednovanje.pakovanje">Pakovanje</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="trazenaKolicina">
+            <span jhiTranslate="tenderApp.viewVrednovanje.trazenaKolicina">Trazena Kolicina</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="procijenjenaVrijednost">
+            <span jhiTranslate="tenderApp.viewVrednovanje.procijenjenaVrijednost">Procijenjena Vrijednost</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="ponudjenaVrijednost">
+            <span jhiTranslate="tenderApp.viewVrednovanje.ponudjenaVrijednost">Ponudjena Vrijednost</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="rokIsporuke">
+            <span jhiTranslate="tenderApp.viewVrednovanje.rokIsporuke">Rok Isporuke</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="nazivProizvodjaca">
+            <span jhiTranslate="tenderApp.viewVrednovanje.nazivProizvodjaca">Naziv Proizvodjaca</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="nazivPonudjaca">
+            <span jhiTranslate="tenderApp.viewVrednovanje.nazivPonudjaca">Naziv Ponudjaca</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="bodCijena">
+            <span jhiTranslate="tenderApp.viewVrednovanje.bodCijena">Bod Cijena</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="bodRok">
+            <span jhiTranslate="tenderApp.viewVrednovanje.bodRok">Bod Rok</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="bodUkupno">
+            <span jhiTranslate="tenderApp.viewVrednovanje.bodUkupno">Bod Ukupno</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let viewVrednovanje of viewVrednovanjes; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/view-vrednovanje', viewVrednovanje.id, 'view']">{{ viewVrednovanje.id }}</a>
+          </td>
+          <td>{{ viewVrednovanje.sifraPostupka }}</td>
+          <td>{{ viewVrednovanje.sifraPonude }}</td>
+          <td>{{ viewVrednovanje.brojPartije }}</td>
+          <td>{{ viewVrednovanje.atc }}</td>
+          <td>{{ viewVrednovanje.inn }}</td>
+          <td>{{ viewVrednovanje.zasticeniNaziv }}</td>
+          <td>{{ viewVrednovanje.farmaceutskiOblikLijeka }}</td>
+          <td>{{ viewVrednovanje.jacinaLijeka }}</td>
+          <td>{{ viewVrednovanje.pakovanje }}</td>
+          <td>{{ viewVrednovanje.trazenaKolicina }}</td>
+          <td>{{ viewVrednovanje.procijenjenaVrijednost }}</td>
+          <td>{{ viewVrednovanje.ponudjenaVrijednost }}</td>
+          <td>{{ viewVrednovanje.rokIsporuke }}</td>
+          <td>{{ viewVrednovanje.nazivProizvodjaca }}</td>
+          <td>{{ viewVrednovanje.nazivPonudjaca }}</td>
+          <td>{{ viewVrednovanje.bodCijena }}</td>
+          <td>{{ viewVrednovanje.bodRok }}</td>
+          <td>{{ viewVrednovanje.bodUkupno }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/view-vrednovanje', viewVrednovanje.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/view-vrednovanje', viewVrednovanje.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(viewVrednovanje)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="viewVrednovanjes && viewVrednovanjes.length > 0">
+    <div class="d-flex justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

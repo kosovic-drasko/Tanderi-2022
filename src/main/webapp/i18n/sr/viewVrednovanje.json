@@ -1,0 +1,41 @@
+{
+  "tenderApp": {
+    "viewVrednovanje": {
+      "home": {
+        "title": "View Vrednovanjes",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Kreiraj novi View Vrednovanje",
+        "createOrEditLabel": "Kreirajte ili izmenite View Vrednovanje",
+        "notFound": "No View Vrednovanjes found"
+      },
+      "created": "Kreiran je novi View Vrednovanje pod nazivom {{ param }}",
+      "updated": "View Vrednovanje pod nazivom {{ param }} je ažuriran",
+      "deleted": "View Vrednovanje pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete View Vrednovanje pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "View Vrednovanje"
+      },
+      "id": "ID",
+      "sifraPostupka": "Sifra Postupka",
+      "sifraPonude": "Sifra Ponude",
+      "brojPartije": "Broj Partije",
+      "atc": "Atc",
+      "inn": "Inn",
+      "zasticeniNaziv": "Zasticeni Naziv",
+      "farmaceutskiOblikLijeka": "Farmaceutski Oblik Lijeka",
+      "jacinaLijeka": "Jacina Lijeka",
+      "pakovanje": "Pakovanje",
+      "trazenaKolicina": "Trazena Kolicina",
+      "procijenjenaVrijednost": "Procijenjena Vrijednost",
+      "ponudjenaVrijednost": "Ponudjena Vrijednost",
+      "rokIsporuke": "Rok Isporuke",
+      "nazivProizvodjaca": "Naziv Proizvodjaca",
+      "nazivPonudjaca": "Naziv Ponudjaca",
+      "bodCijena": "Bod Cijena",
+      "bodRok": "Bod Rok",
+      "bodUkupno": "Bod Ukupno"
+    }
+  }
+}
