@@ -29,6 +29,16 @@ import { RouterModule } from '@angular/router';
         data: { pageTitle: 'tenderApp.viewVrednovanje.home.title' },
         loadChildren: () => import('./view-vrednovanje/view-vrednovanje.module').then(m => m.ViewVrednovanjeModule),
       },
+      {
+        path: 'prvorangirani',
+        data: { pageTitle: 'tenderApp.prvorangirani.home.title' },
+        loadChildren: () => import('./prvorangirani/prvorangirani.module').then(m => m.PrvorangiraniModule),
+      },
+      {
+        path: 'hvale-ponude',
+        data: { pageTitle: 'tenderApp.hvalePonude.home.title' },
+        loadChildren: () => import('./hvale-ponude/hvale-ponude.module').then(m => m.HvalePonudeModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],

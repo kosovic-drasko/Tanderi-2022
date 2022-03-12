@@ -1,0 +1,208 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-prvorangirani-heading"
+        data-cy="PrvorangiraniCreateUpdateHeading"
+        jhiTranslate="tenderApp.prvorangirani.home.createOrEditLabel"
+      >
+        Create or edit a Prvorangirani
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderApp.prvorangirani.sifraPostupka" for="field_sifraPostupka">Sifra Postupka</label>
+          <input
+            type="number"
+            class="form-control"
+            name="sifraPostupka"
+            id="field_sifraPostupka"
+            data-cy="sifraPostupka"
+            formControlName="sifraPostupka"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderApp.prvorangirani.sifraPonude" for="field_sifraPonude">Sifra Ponude</label>
+          <input
+            type="number"
+            class="form-control"
+            name="sifraPonude"
+            id="field_sifraPonude"
+            data-cy="sifraPonude"
+            formControlName="sifraPonude"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderApp.prvorangirani.brojPartije" for="field_brojPartije">Broj Partije</label>
+          <input
+            type="number"
+            class="form-control"
+            name="brojPartije"
+            id="field_brojPartije"
+            data-cy="brojPartije"
+            formControlName="brojPartije"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderApp.prvorangirani.atc" for="field_atc">Atc</label>
+          <input type="text" class="form-control" name="atc" id="field_atc" data-cy="atc" formControlName="atc" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderApp.prvorangirani.inn" for="field_inn">Inn</label>
+          <input type="text" class="form-control" name="inn" id="field_inn" data-cy="inn" formControlName="inn" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderApp.prvorangirani.zasticeniNaziv" for="field_zasticeniNaziv">Zasticeni Naziv</label>
+          <input
+            type="text"
+            class="form-control"
+            name="zasticeniNaziv"
+            id="field_zasticeniNaziv"
+            data-cy="zasticeniNaziv"
+            formControlName="zasticeniNaziv"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderApp.prvorangirani.farmaceutskiOblikLijeka" for="field_farmaceutskiOblikLijeka"
+            >Farmaceutski Oblik Lijeka</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="farmaceutskiOblikLijeka"
+            id="field_farmaceutskiOblikLijeka"
+            data-cy="farmaceutskiOblikLijeka"
+            formControlName="farmaceutskiOblikLijeka"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderApp.prvorangirani.jacinaLijeka" for="field_jacinaLijeka">Jacina Lijeka</label>
+          <input
+            type="text"
+            class="form-control"
+            name="jacinaLijeka"
+            id="field_jacinaLijeka"
+            data-cy="jacinaLijeka"
+            formControlName="jacinaLijeka"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderApp.prvorangirani.pakovanje" for="field_pakovanje">Pakovanje</label>
+          <input type="text" class="form-control" name="pakovanje" id="field_pakovanje" data-cy="pakovanje" formControlName="pakovanje" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderApp.prvorangirani.trazenaKolicina" for="field_trazenaKolicina"
+            >Trazena Kolicina</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="trazenaKolicina"
+            id="field_trazenaKolicina"
+            data-cy="trazenaKolicina"
+            formControlName="trazenaKolicina"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderApp.prvorangirani.procijenjenaVrijednost" for="field_procijenjenaVrijednost"
+            >Procijenjena Vrijednost</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="procijenjenaVrijednost"
+            id="field_procijenjenaVrijednost"
+            data-cy="procijenjenaVrijednost"
+            formControlName="procijenjenaVrijednost"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderApp.prvorangirani.ponudjenaVrijednost" for="field_ponudjenaVrijednost"
+            >Ponudjena Vrijednost</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="ponudjenaVrijednost"
+            id="field_ponudjenaVrijednost"
+            data-cy="ponudjenaVrijednost"
+            formControlName="ponudjenaVrijednost"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderApp.prvorangirani.rokIsporuke" for="field_rokIsporuke">Rok Isporuke</label>
+          <input
+            type="number"
+            class="form-control"
+            name="rokIsporuke"
+            id="field_rokIsporuke"
+            data-cy="rokIsporuke"
+            formControlName="rokIsporuke"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderApp.prvorangirani.nazivPonudjaca" for="field_nazivPonudjaca">Naziv Ponudjaca</label>
+          <input
+            type="text"
+            class="form-control"
+            name="nazivPonudjaca"
+            id="field_nazivPonudjaca"
+            data-cy="nazivPonudjaca"
+            formControlName="nazivPonudjaca"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderApp.prvorangirani.bodCijena" for="field_bodCijena">Bod Cijena</label>
+          <input type="number" class="form-control" name="bodCijena" id="field_bodCijena" data-cy="bodCijena" formControlName="bodCijena" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderApp.prvorangirani.bodRok" for="field_bodRok">Bod Rok</label>
+          <input type="number" class="form-control" name="bodRok" id="field_bodRok" data-cy="bodRok" formControlName="bodRok" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="tenderApp.prvorangirani.bodUkupno" for="field_bodUkupno">Bod Ukupno</label>
+          <input type="number" class="form-control" name="bodUkupno" id="field_bodUkupno" data-cy="bodUkupno" formControlName="bodUkupno" />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

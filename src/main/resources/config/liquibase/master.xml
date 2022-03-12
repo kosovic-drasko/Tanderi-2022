@@ -20,6 +20,8 @@
     <include file="config/liquibase/changelog/20220312182837_added_entity_Specifikacije.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220312183854_added_entity_Ponude.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220312185513_added_entity_ViewVrednovanje.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220312192118_added_entity_Prvorangirani.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220312192716_added_entity_HvalePonude.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
