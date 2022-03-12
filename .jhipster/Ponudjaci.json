@@ -1,0 +1,26 @@
+{
+  "changelogDate": "20220312181005",
+  "fields": [
+    {
+      "fieldName": "nazivPonudjaca",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "odgovorno_lice",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "adresa_ponudjaca",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "banka_racun",
+      "fieldType": "String"
+    }
+  ],
+  "name": "Ponudjaci",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "no"
+}

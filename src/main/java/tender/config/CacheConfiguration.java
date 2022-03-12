@@ -48,6 +48,11 @@ public class CacheConfiguration {
             createCache(cm, tender.domain.User.class.getName());
             createCache(cm, tender.domain.Authority.class.getName());
             createCache(cm, tender.domain.User.class.getName() + ".authorities");
+            createCache(cm, tender.domain.Postupci.class.getName());
+            createCache(cm, tender.domain.Ponudjaci.class.getName());
+            createCache(cm, tender.domain.Specifikacije.class.getName());
+            createCache(cm, tender.domain.Ponude.class.getName());
+            createCache(cm, tender.domain.ViewVrednovanje.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }
