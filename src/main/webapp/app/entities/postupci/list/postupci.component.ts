@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
@@ -9,109 +9,84 @@ import { IPostupci } from '../postupci.model';
 import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/config/pagination.constants';
 import { PostupciService } from '../service/postupci.service';
 import { PostupciDeleteDialogComponent } from '../delete/postupci-delete-dialog.component';
+import { PostupciUpdateComponent } from '../update/postupci-update.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'jhi-postupci',
   templateUrl: './postupci.component.html',
+  styleUrls: ['./postupci.scss'],
 })
 export class PostupciComponent implements OnInit {
-  postupcis?: IPostupci[];
-  isLoading = false;
-  totalItems = 0;
-  itemsPerPage = ITEMS_PER_PAGE;
-  page?: number;
-  predicate!: string;
-  ascending!: boolean;
-  ngbPaginationPage = 1;
+  postupaks?: IPostupci[];
+  aktivno?: boolean;
+  public displayedColumns = ['sifra postupka', 'opis postupka', 'vrsta postupka', 'datum objave', 'broj tendera', 'delete', 'edit'];
+  public dataSource = new MatTableDataSource<IPostupci>();
 
-  constructor(
-    protected postupciService: PostupciService,
-    protected activatedRoute: ActivatedRoute,
-    protected router: Router,
-    protected modalService: NgbModal
-  ) {}
+  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  // clickedRows = new Set<IPostupci>();
+  constructor(protected postupciService: PostupciService, protected modalService: NgbModal, public dialog: MatDialog) {}
 
-  loadPage(page?: number, dontNavigate?: boolean): void {
-    this.isLoading = true;
-    const pageToLoad: number = page ?? this.page ?? 1;
-
-    this.postupciService
-      .query({
-        page: pageToLoad - 1,
-        size: this.itemsPerPage,
-        sort: this.sort(),
+  loadAll(): void {
+    this.postupciService.query().subscribe((res: HttpResponse<IPostupci[]>) => {
+      this.dataSource.data = res.body ?? [];
+    });
+  }
+  startEdit(
+    id?: number,
+    sifraPostupka?: number,
+    brojTendera?: string | null,
+    opisPostupka?: string,
+    vrstaPostupka?: string,
+    datumObjave?: Date
+  ): any {
+    const dialogRef = this.dialog.open(PostupciUpdateComponent, {
+      data: {
+        id,
+        sifraPostupka,
+        brojTendera,
+        opisPostupka,
+        vrstaPostupka,
+        datumObjave,
+        name: (this.aktivno = true),
+      },
+    });
+    dialogRef.afterClosed().subscribe(() =>
+      this.postupciService.query().subscribe((res: HttpResponse<IPostupci[]>) => {
+        this.dataSource.data = res.body ?? [];
       })
-      .subscribe({
-        next: (res: HttpResponse<IPostupci[]>) => {
-          this.isLoading = false;
-          this.onSuccess(res.body, res.headers, pageToLoad, !dontNavigate);
-        },
-        error: () => {
-          this.isLoading = false;
-          this.onError();
-        },
-      });
+    );
   }
-
-  ngOnInit(): void {
-    this.handleNavigation();
+  addNew(): any {
+    const dialogRef = this.dialog.open(PostupciUpdateComponent, {
+      data: { Postupci: {}, name: (this.aktivno = false) },
+    });
+    dialogRef.afterClosed().subscribe(() =>
+      this.postupciService.query().subscribe((res: HttpResponse<IPostupci[]>) => {
+        this.dataSource.data = res.body ?? [];
+      })
+    );
   }
-
-  trackId(index: number, item: IPostupci): number {
-    return item.id!;
-  }
-
-  delete(postupci: IPostupci): void {
+  delete(postupci: IPostupci[]): void {
     const modalRef = this.modalService.open(PostupciDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.postupci = postupci;
     // unsubscribe not needed because closed completes on modal close
-    modalRef.closed.subscribe(reason => {
+    modalRef.closed.subscribe((reason: string) => {
       if (reason === 'deleted') {
-        this.loadPage();
+        this.loadAll();
       }
     });
   }
 
-  protected sort(): string[] {
-    const result = [this.predicate + ',' + (this.ascending ? ASC : DESC)];
-    if (this.predicate !== 'id') {
-      result.push('id');
-    }
-    return result;
+  ngOnInit(): void {
+    this.loadAll();
   }
-
-  protected handleNavigation(): void {
-    combineLatest([this.activatedRoute.data, this.activatedRoute.queryParamMap]).subscribe(([data, params]) => {
-      const page = params.get('page');
-      const pageNumber = +(page ?? 1);
-      const sort = (params.get(SORT) ?? data['defaultSort']).split(',');
-      const predicate = sort[0];
-      const ascending = sort[1] === ASC;
-      if (pageNumber !== this.page || predicate !== this.predicate || ascending !== this.ascending) {
-        this.predicate = predicate;
-        this.ascending = ascending;
-        this.loadPage(pageNumber, true);
-      }
-    });
-  }
-
-  protected onSuccess(data: IPostupci[] | null, headers: HttpHeaders, page: number, navigate: boolean): void {
-    this.totalItems = Number(headers.get('X-Total-Count'));
-    this.page = page;
-    if (navigate) {
-      this.router.navigate(['/postupci'], {
-        queryParams: {
-          page: this.page,
-          size: this.itemsPerPage,
-          sort: this.predicate + ',' + (this.ascending ? ASC : DESC),
-        },
-      });
-    }
-    this.postupcis = data ?? [];
-    this.ngbPaginationPage = this.page;
-  }
-
-  protected onError(): void {
-    this.ngbPaginationPage = this.page ?? 1;
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 }

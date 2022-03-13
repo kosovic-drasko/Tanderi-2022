@@ -2,11 +2,11 @@
   "tenderApp": {
     "postupci": {
       "home": {
-        "title": "Postupcis",
+        "title": "Postupci",
         "refreshListLabel": "Refresh list",
         "createLabel": "Create a new Postupci",
         "createOrEditLabel": "Create or edit a Postupci",
-        "notFound": "No Postupcis found"
+        "notFound": "No Postupci found"
       },
       "created": "A new Postupci is created with identifier {{ param }}",
       "updated": "A Postupci is updated with identifier {{ param }}",
