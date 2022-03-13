@@ -214,9 +214,4 @@ public class SpecifikacijeResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
-
-    @GetMapping("/specifikacija/{sifra_postupka}")
-    public List<Specifikacije> getSpecifikacijePostupak(@PathVariable Integer sifra_postupka) {
-        return specifikacijeRepository.findBySifraPostupka(sifra_postupka);
-    }
 }

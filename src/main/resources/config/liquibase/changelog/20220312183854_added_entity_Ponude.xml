@@ -41,6 +41,9 @@
             <column name="selected" type="boolean">
                 <constraints nullable="true" />
             </column>
+            <column name="jedinicna_cijena" type="double">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>
@@ -71,6 +74,7 @@
             <column name="rok_isporuke" type="numeric"/>
             <column name="sifra_ponudjaca" type="numeric"/>
             <column name="selected" type="boolean"/>
+            <column name="jedinicna_cijena" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

@@ -26,6 +26,7 @@
             view_vrednovanje0.trazena_kolicina,
             view_vrednovanje0.procijenjena_vrijednost,
             view_vrednovanje0.ponudjena_vrijednost,
+            view_vrednovanje0.jedinicna_cijena,
             view_vrednovanje0.rok_isporuke,
             view_vrednovanje0.sifra_ponudjaca,
             view_vrednovanje0.naziv_proizvodjaca,

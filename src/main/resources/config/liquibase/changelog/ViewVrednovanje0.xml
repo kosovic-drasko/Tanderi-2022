@@ -26,6 +26,7 @@
             specifikacije.trazena_kolicina,
             specifikacije.procijenjena_vrijednost,
             ponude.ponudjena_vrijednost,
+            ponude.jedinicna_cijena,
             ponude.rok_isporuke,
             ponude.naziv_proizvodjaca,
             ponude.sifra_ponudjaca,

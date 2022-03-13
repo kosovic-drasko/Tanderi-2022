@@ -30,6 +30,7 @@ describe('Ponude Service', () => {
       rokIsporuke: 0,
       sifraPonudjaca: 0,
       selected: false,
+      jedinicnaCijena: 0,
     };
   });
 
@@ -74,6 +75,7 @@ describe('Ponude Service', () => {
           rokIsporuke: 1,
           sifraPonudjaca: 1,
           selected: true,
+          jedinicnaCijena: 1,
         },
         elemDefault
       );
@@ -125,6 +127,7 @@ describe('Ponude Service', () => {
           rokIsporuke: 1,
           sifraPonudjaca: 1,
           selected: true,
+          jedinicnaCijena: 1,
         },
         elemDefault
       );
@@ -176,7 +179,7 @@ describe('Ponude Service', () => {
       });
 
       it('should add only unique Ponude to an array', () => {
-        const ponudeArray: IPonude[] = [{ id: 123 }, { id: 456 }, { id: 30136 }];
+        const ponudeArray: IPonude[] = [{ id: 123 }, { id: 456 }, { id: 76248 }];
         const ponudeCollection: IPonude[] = [{ id: 123 }];
         expectedResult = service.addPonudeToCollectionIfMissing(ponudeCollection, ...ponudeArray);
         expect(expectedResult).toHaveLength(3);

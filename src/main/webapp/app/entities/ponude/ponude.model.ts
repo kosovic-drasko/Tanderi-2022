@@ -9,6 +9,7 @@ export interface IPonude {
   rokIsporuke?: number | null;
   sifraPonudjaca?: number | null;
   selected?: boolean | null;
+  jedinicnaCijena?: number | null;
 }
 
 export class Ponude implements IPonude {
@@ -22,7 +23,8 @@ export class Ponude implements IPonude {
     public ponudjenaVrijednost?: number,
     public rokIsporuke?: number | null,
     public sifraPonudjaca?: number | null,
-    public selected?: boolean | null
+    public selected?: boolean | null,
+    public jedinicnaCijena?: number | null
   ) {
     this.selected = this.selected ?? false;
   }

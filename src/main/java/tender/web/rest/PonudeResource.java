@@ -158,6 +158,9 @@ public class PonudeResource {
                 if (ponude.getSelected() != null) {
                     existingPonude.setSelected(ponude.getSelected());
                 }
+                if (ponude.getJedinicnaCijena() != null) {
+                    existingPonude.setJedinicnaCijena(ponude.getJedinicnaCijena());
+                }
 
                 return existingPonude;
             })
@@ -210,20 +213,5 @@ public class PonudeResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
-    }
-
-    @GetMapping("/ponude/{sifra_postupka}")
-    public List<Ponude> getPonude(@PathVariable Integer sifra_postupka) {
-        return ponudeRepository.findBySifraPostupka(sifra_postupka);
-    }
-
-    @GetMapping("/ponude-sifra-ponude/{sifra_ponude}")
-    public List<Ponude> getSifraPonude(@PathVariable Integer sifra_ponude) {
-        return ponudeRepository.findBySifraPonude(sifra_ponude);
-    }
-
-    @GetMapping("/ponude/all")
-    public List<Ponude> getAll() {
-        return ponudeRepository.findAll();
     }
 }

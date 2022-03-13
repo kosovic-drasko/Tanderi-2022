@@ -40,6 +40,10 @@
     {
       "fieldName": "selected",
       "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "jedinicnaCijena",
+      "fieldType": "Double"
     }
   ],
   "name": "Ponude",

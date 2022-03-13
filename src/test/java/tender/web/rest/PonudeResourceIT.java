@@ -56,6 +56,9 @@ class PonudeResourceIT {
     private static final Boolean DEFAULT_SELECTED = false;
     private static final Boolean UPDATED_SELECTED = true;
 
+    private static final Double DEFAULT_JEDINICNA_CIJENA = 1D;
+    private static final Double UPDATED_JEDINICNA_CIJENA = 2D;
+
     private static final String ENTITY_API_URL = "/api/ponudes";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -89,7 +92,8 @@ class PonudeResourceIT {
             .ponudjenaVrijednost(DEFAULT_PONUDJENA_VRIJEDNOST)
             .rokIsporuke(DEFAULT_ROK_ISPORUKE)
             .sifraPonudjaca(DEFAULT_SIFRA_PONUDJACA)
-            .selected(DEFAULT_SELECTED);
+            .selected(DEFAULT_SELECTED)
+            .jedinicnaCijena(DEFAULT_JEDINICNA_CIJENA);
         return ponude;
     }
 
@@ -109,7 +113,8 @@ class PonudeResourceIT {
             .ponudjenaVrijednost(UPDATED_PONUDJENA_VRIJEDNOST)
             .rokIsporuke(UPDATED_ROK_ISPORUKE)
             .sifraPonudjaca(UPDATED_SIFRA_PONUDJACA)
-            .selected(UPDATED_SELECTED);
+            .selected(UPDATED_SELECTED)
+            .jedinicnaCijena(UPDATED_JEDINICNA_CIJENA);
         return ponude;
     }
 
@@ -140,6 +145,7 @@ class PonudeResourceIT {
         assertThat(testPonude.getRokIsporuke()).isEqualTo(DEFAULT_ROK_ISPORUKE);
         assertThat(testPonude.getSifraPonudjaca()).isEqualTo(DEFAULT_SIFRA_PONUDJACA);
         assertThat(testPonude.getSelected()).isEqualTo(DEFAULT_SELECTED);
+        assertThat(testPonude.getJedinicnaCijena()).isEqualTo(DEFAULT_JEDINICNA_CIJENA);
     }
 
     @Test
@@ -248,7 +254,8 @@ class PonudeResourceIT {
             .andExpect(jsonPath("$.[*].ponudjenaVrijednost").value(hasItem(DEFAULT_PONUDJENA_VRIJEDNOST.doubleValue())))
             .andExpect(jsonPath("$.[*].rokIsporuke").value(hasItem(DEFAULT_ROK_ISPORUKE)))
             .andExpect(jsonPath("$.[*].sifraPonudjaca").value(hasItem(DEFAULT_SIFRA_PONUDJACA)))
-            .andExpect(jsonPath("$.[*].selected").value(hasItem(DEFAULT_SELECTED.booleanValue())));
+            .andExpect(jsonPath("$.[*].selected").value(hasItem(DEFAULT_SELECTED.booleanValue())))
+            .andExpect(jsonPath("$.[*].jedinicnaCijena").value(hasItem(DEFAULT_JEDINICNA_CIJENA.doubleValue())));
     }
 
     @Test
@@ -271,7 +278,8 @@ class PonudeResourceIT {
             .andExpect(jsonPath("$.ponudjenaVrijednost").value(DEFAULT_PONUDJENA_VRIJEDNOST.doubleValue()))
             .andExpect(jsonPath("$.rokIsporuke").value(DEFAULT_ROK_ISPORUKE))
             .andExpect(jsonPath("$.sifraPonudjaca").value(DEFAULT_SIFRA_PONUDJACA))
-            .andExpect(jsonPath("$.selected").value(DEFAULT_SELECTED.booleanValue()));
+            .andExpect(jsonPath("$.selected").value(DEFAULT_SELECTED.booleanValue()))
+            .andExpect(jsonPath("$.jedinicnaCijena").value(DEFAULT_JEDINICNA_CIJENA.doubleValue()));
     }
 
     @Test
@@ -302,7 +310,8 @@ class PonudeResourceIT {
             .ponudjenaVrijednost(UPDATED_PONUDJENA_VRIJEDNOST)
             .rokIsporuke(UPDATED_ROK_ISPORUKE)
             .sifraPonudjaca(UPDATED_SIFRA_PONUDJACA)
-            .selected(UPDATED_SELECTED);
+            .selected(UPDATED_SELECTED)
+            .jedinicnaCijena(UPDATED_JEDINICNA_CIJENA);
 
         restPonudeMockMvc
             .perform(
@@ -325,6 +334,7 @@ class PonudeResourceIT {
         assertThat(testPonude.getRokIsporuke()).isEqualTo(UPDATED_ROK_ISPORUKE);
         assertThat(testPonude.getSifraPonudjaca()).isEqualTo(UPDATED_SIFRA_PONUDJACA);
         assertThat(testPonude.getSelected()).isEqualTo(UPDATED_SELECTED);
+        assertThat(testPonude.getJedinicnaCijena()).isEqualTo(UPDATED_JEDINICNA_CIJENA);
     }
 
     @Test
@@ -423,6 +433,7 @@ class PonudeResourceIT {
         assertThat(testPonude.getRokIsporuke()).isEqualTo(UPDATED_ROK_ISPORUKE);
         assertThat(testPonude.getSifraPonudjaca()).isEqualTo(UPDATED_SIFRA_PONUDJACA);
         assertThat(testPonude.getSelected()).isEqualTo(DEFAULT_SELECTED);
+        assertThat(testPonude.getJedinicnaCijena()).isEqualTo(DEFAULT_JEDINICNA_CIJENA);
     }
 
     @Test
@@ -446,7 +457,8 @@ class PonudeResourceIT {
             .ponudjenaVrijednost(UPDATED_PONUDJENA_VRIJEDNOST)
             .rokIsporuke(UPDATED_ROK_ISPORUKE)
             .sifraPonudjaca(UPDATED_SIFRA_PONUDJACA)
-            .selected(UPDATED_SELECTED);
+            .selected(UPDATED_SELECTED)
+            .jedinicnaCijena(UPDATED_JEDINICNA_CIJENA);
 
         restPonudeMockMvc
             .perform(
@@ -469,6 +481,7 @@ class PonudeResourceIT {
         assertThat(testPonude.getRokIsporuke()).isEqualTo(UPDATED_ROK_ISPORUKE);
         assertThat(testPonude.getSifraPonudjaca()).isEqualTo(UPDATED_SIFRA_PONUDJACA);
         assertThat(testPonude.getSelected()).isEqualTo(UPDATED_SELECTED);
+        assertThat(testPonude.getJedinicnaCijena()).isEqualTo(UPDATED_JEDINICNA_CIJENA);
     }
 
     @Test

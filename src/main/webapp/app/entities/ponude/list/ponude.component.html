@@ -60,6 +60,9 @@
           <th scope="col" jhiSortBy="selected">
             <span jhiTranslate="tenderApp.ponude.selected">Selected</span> <fa-icon icon="sort"></fa-icon>
           </th>
+          <th scope="col" jhiSortBy="jedinicnaCijena">
+            <span jhiTranslate="tenderApp.ponude.jedinicnaCijena">Jedinicna Cijena</span> <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -77,6 +80,7 @@
           <td>{{ ponude.rokIsporuke }}</td>
           <td>{{ ponude.sifraPonudjaca }}</td>
           <td>{{ ponude.selected }}</td>
+          <td>{{ ponude.jedinicnaCijena }}</td>
           <td class="text-end">
             <div class="btn-group">
               <button type="submit" [routerLink]="['/ponude', ponude.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">

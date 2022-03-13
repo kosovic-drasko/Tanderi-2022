@@ -26,6 +26,7 @@ export class PonudeUpdateComponent implements OnInit {
     rokIsporuke: [],
     sifraPonudjaca: [],
     selected: [],
+    jedinicnaCijena: [],
   });
 
   constructor(protected ponudeService: PonudeService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
@@ -81,6 +82,7 @@ export class PonudeUpdateComponent implements OnInit {
       rokIsporuke: ponude.rokIsporuke,
       sifraPonudjaca: ponude.sifraPonudjaca,
       selected: ponude.selected,
+      jedinicnaCijena: ponude.jedinicnaCijena,
     });
   }
 
@@ -97,6 +99,7 @@ export class PonudeUpdateComponent implements OnInit {
       rokIsporuke: this.editForm.get(['rokIsporuke'])!.value,
       sifraPonudjaca: this.editForm.get(['sifraPonudjaca'])!.value,
       selected: this.editForm.get(['selected'])!.value,
+      jedinicnaCijena: this.editForm.get(['jedinicnaCijena'])!.value,
     };
   }
 }
