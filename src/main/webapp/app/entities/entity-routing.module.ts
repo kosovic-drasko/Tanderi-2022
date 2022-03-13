@@ -10,6 +10,11 @@ import { RouterModule } from '@angular/router';
         loadChildren: () => import('./postupci/postupci.module').then(m => m.PostupciModule),
       },
       {
+        path: 'tenderi-home',
+        data: { pageTitle: 'tenderiApp.tenderiHome.home.title' },
+        loadChildren: () => import('./tenderi-home/tenderi-home.module').then(m => m.TenderiHomeModule),
+      },
+      {
         path: 'ponudjaci',
         data: { pageTitle: 'tenderApp.ponudjaci.home.title' },
         loadChildren: () => import('./ponudjaci/ponudjaci.module').then(m => m.PonudjaciModule),

@@ -1,15 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { HttpHeaders, HttpResponse } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest } from 'rxjs';
+import { HttpResponse } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IPostupci } from '../postupci.model';
 
-import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/config/pagination.constants';
 import { PostupciService } from '../service/postupci.service';
 import { PostupciDeleteDialogComponent } from '../delete/postupci-delete-dialog.component';
-import { PostupciUpdateComponent } from '../update/postupci-update.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
@@ -22,13 +18,12 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class PostupciComponent implements OnInit {
   postupaks?: IPostupci[];
-  aktivno?: boolean;
+
   public displayedColumns = ['sifra postupka', 'opis postupka', 'vrsta postupka', 'datum objave', 'broj tendera', 'delete', 'edit'];
   public dataSource = new MatTableDataSource<IPostupci>();
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  // clickedRows = new Set<IPostupci>();
   constructor(protected postupciService: PostupciService, protected modalService: NgbModal, public dialog: MatDialog) {}
 
   loadAll(): void {
@@ -36,41 +31,7 @@ export class PostupciComponent implements OnInit {
       this.dataSource.data = res.body ?? [];
     });
   }
-  startEdit(
-    id?: number,
-    sifraPostupka?: number,
-    brojTendera?: string | null,
-    opisPostupka?: string,
-    vrstaPostupka?: string,
-    datumObjave?: Date
-  ): any {
-    const dialogRef = this.dialog.open(PostupciUpdateComponent, {
-      data: {
-        id,
-        sifraPostupka,
-        brojTendera,
-        opisPostupka,
-        vrstaPostupka,
-        datumObjave,
-        name: (this.aktivno = true),
-      },
-    });
-    dialogRef.afterClosed().subscribe(() =>
-      this.postupciService.query().subscribe((res: HttpResponse<IPostupci[]>) => {
-        this.dataSource.data = res.body ?? [];
-      })
-    );
-  }
-  addNew(): any {
-    const dialogRef = this.dialog.open(PostupciUpdateComponent, {
-      data: { Postupci: {}, name: (this.aktivno = false) },
-    });
-    dialogRef.afterClosed().subscribe(() =>
-      this.postupciService.query().subscribe((res: HttpResponse<IPostupci[]>) => {
-        this.dataSource.data = res.body ?? [];
-      })
-    );
-  }
+
   delete(postupci: IPostupci[]): void {
     const modalRef = this.modalService.open(PostupciDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.postupci = postupci;
@@ -85,6 +46,7 @@ export class PostupciComponent implements OnInit {
   ngOnInit(): void {
     this.loadAll();
   }
+
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;

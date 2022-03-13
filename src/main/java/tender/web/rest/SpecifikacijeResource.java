@@ -53,6 +53,11 @@ public class SpecifikacijeResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new specifikacije, or with status {@code 400 (Bad Request)} if the specifikacije has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    @GetMapping("/specifikacija/{sifra_postupka}")
+    public List<Specifikacije> getSpecifikacijePostupak(@PathVariable Integer sifra_postupka) {
+        return specifikacijeRepository.findBySifraPostupka(sifra_postupka);
+    }
+
     @PostMapping("/specifikacijes")
     public ResponseEntity<Specifikacije> createSpecifikacije(@Valid @RequestBody Specifikacije specifikacije) throws URISyntaxException {
         log.debug("REST request to save Specifikacije : {}", specifikacije);
