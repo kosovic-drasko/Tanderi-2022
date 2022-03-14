@@ -13,16 +13,7 @@
 
   <jhi-alert></jhi-alert>
   <div class="example-container mat-elevation-z8">
-    <table
-      class="example-container mat-elevation-z8"
-      mat-table
-      id="ExampleTable"
-      matTableExporter
-      [dataSource]="dataSource"
-      matSort
-      matSortStart="desc"
-      #exporter="matTableExporter"
-    >
+    <table mat-table id="ExampleTable" matTableExporter [dataSource]="dataSource" matSort matSortStart="desc">
       <ng-container matColumnDef="sifra postupka">
         <th mat-header-cell *matHeaderCellDef>Sifra Postupka</th>
         <td mat-cell *matCellDef="let element">{{ element.sifraPostupka }}</td>
