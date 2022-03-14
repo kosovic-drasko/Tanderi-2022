@@ -1,11 +1,9 @@
 <div>
-  <h2 id="page-heading" data-cy="ViewVrednovanjeHeading">
-    <div class="d-flex justify-content-end"></div>
-  </h2>
   <mat-form-field class="container-search">
     <mat-icon matPrefix>search</mat-icon>
     <input type="search" (keyup)="doFilter(box.value)" #box matInput placeholder="" />
   </mat-form-field>
+
   <jhi-alert-error></jhi-alert-error>
 
   <jhi-alert></jhi-alert>
