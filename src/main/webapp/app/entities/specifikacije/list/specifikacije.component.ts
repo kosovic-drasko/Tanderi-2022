@@ -17,6 +17,7 @@ import { AccountService } from '../../../core/auth/account.service';
 })
 export class SpecifikacijeComponent implements AfterViewInit, OnChanges {
   account: Account | null = null;
+  ukupnaPonudjena?: number;
 
   // public resourceUrlExcelDownload = SERVER_API_URL + 'api/specifikacije/file';
   public displayedColumns = [
@@ -74,6 +75,7 @@ export class SpecifikacijeComponent implements AfterViewInit, OnChanges {
 
   doFilter = (iznos: string): any => {
     this.dataSource.filter = iznos.trim().toLocaleLowerCase();
+    this.ukupnaPonudjena = this.dataSource.filteredData.map(t => t.procijenjenaVrijednost).reduce((acc, value) => acc! + value!, 0);
   };
 
   ngOnChanges(): void {
