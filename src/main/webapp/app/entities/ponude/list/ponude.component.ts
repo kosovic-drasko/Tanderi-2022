@@ -1,21 +1,17 @@
 import { AfterViewInit, Component, Input, OnChanges, ViewChild } from '@angular/core';
-import { HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IPonude, Ponude } from '../ponude.model';
 
-import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/config/pagination.constants';
 import { PonudeService } from '../service/ponude.service';
 import { PonudeDeleteDialogComponent } from '../delete/ponude-delete-dialog.component';
 import { Account } from '../../../core/auth/account.model';
 import { MatTableDataSource } from '@angular/material/table';
-import { ISpecifikacije } from '../../specifikacije/specifikacije.model';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { AccountService } from '../../../core/auth/account.service';
-import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'jhi-ponude',

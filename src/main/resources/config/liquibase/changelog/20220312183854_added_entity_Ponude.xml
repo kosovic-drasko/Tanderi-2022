@@ -38,12 +38,13 @@
             <column name="sifra_ponudjaca" type="integer">
                 <constraints nullable="true" />
             </column>
-            <column name="selected" type="boolean">
-                <constraints nullable="true" />
-            </column>
             <column name="jedinicna_cijena" type="double">
                 <constraints nullable="true" />
             </column>
+            <column name="selected" type="boolean">
+                <constraints nullable="true" />
+            </column>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>

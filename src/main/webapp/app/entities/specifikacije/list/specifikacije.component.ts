@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ISpecifikacije } from '../specifikacije.model';
@@ -9,14 +9,13 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { AccountService } from '../../../core/auth/account.service';
-import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'jhi-specifikacije',
   templateUrl: './specifikacije.component.html',
   styleUrls: ['./specifikacije.scss'],
 })
-export class SpecifikacijeComponent implements AfterViewInit, OnChanges, OnInit {
+export class SpecifikacijeComponent implements AfterViewInit, OnChanges {
   account: Account | null = null;
 
   // public resourceUrlExcelDownload = SERVER_API_URL + 'api/specifikacije/file';
@@ -48,12 +47,11 @@ export class SpecifikacijeComponent implements AfterViewInit, OnChanges, OnInit 
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
     protected modalService: NgbModal,
-    private accountService: AccountService,
-    protected dialog: MatDialog
+    private accountService: AccountService
   ) {}
 
   public getSifraPostupka(): void {
-    this.specifikacijaService.findSiftraPostupak(456).subscribe((res: ISpecifikacije[]) => {
+    this.specifikacijaService.findSiftraPostupak(this.postupak).subscribe((res: ISpecifikacije[]) => {
       this.dataSource.data = res;
     });
   }
@@ -86,9 +84,9 @@ export class SpecifikacijeComponent implements AfterViewInit, OnChanges, OnInit 
     return this.accountService.isAuthenticated();
   }
 
-  ngOnInit(): void {
-    this.getSifraPostupka();
-  }
+  // ngOnInit(): void {
+  //   this.getSifraPostupka();
+  // }
 
   // uploadFile(): any {
   //   const formData = new FormData();
