@@ -9,9 +9,18 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableExporterModule } from 'mat-table-exporter';
+import { JhMaterialModule } from '../../shared/jh-material.module';
 
 @NgModule({
-  imports: [SharedModule, PrvorangiraniRoutingModule, MatTableModule, MatSortModule, MatPaginatorModule, MatTableExporterModule],
+  imports: [
+    SharedModule,
+    PrvorangiraniRoutingModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatTableExporterModule,
+    JhMaterialModule,
+  ],
   declarations: [PrvorangiraniComponent, PrvorangiraniDetailComponent, PrvorangiraniUpdateComponent, PrvorangiraniDeleteDialogComponent],
   entryComponents: [PrvorangiraniDeleteDialogComponent],
   exports: [PrvorangiraniComponent],

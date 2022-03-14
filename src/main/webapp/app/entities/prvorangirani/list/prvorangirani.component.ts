@@ -75,11 +75,11 @@ export class PrvorangiraniComponent implements OnChanges, AfterViewInit {
   //     this.getTotalCostProcijenjena();
   //   });
   // }
-  // doFilter = (iznos: string): any => {
-  //   this.dataSource.filter = iznos.trim().toLocaleLowerCase();
-  //   this.ukupnaPonudjena = this.dataSource.filteredData.map(t => t.ponudjenaVrijednost).reduce((acc, value) => acc! + value!, 0);
-  //   this.ukupnaProcijenjena = this.dataSource.filteredData.map(t => t.procijenjenaVrijednost).reduce((acc, value) => acc! + value!, 0);
-  // };
+  doFilter = (iznos: string): any => {
+    this.dataSource.filter = iznos.trim().toLocaleLowerCase();
+    this.ukupnaPonudjena = this.dataSource.filteredData.map(t => t.ponudjenaVrijednost).reduce((acc, value) => acc! + value!, 0);
+    this.ukupnaProcijenjena = this.dataSource.filteredData.map(t => t.procijenjenaVrijednost).reduce((acc, value) => acc! + value!, 0);
+  };
 
   ngOnChanges(): void {
     this.getAllPrvorangiraniPostupak();

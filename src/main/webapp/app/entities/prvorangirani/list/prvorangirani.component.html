@@ -1,4 +1,8 @@
 <div>
+  <mat-form-field class="container-search">
+    <mat-icon matPrefix>search</mat-icon>
+    <input type="search" (keyup)="doFilter(box.value)" #box matInput placeholder="" />
+  </mat-form-field>
   <jhi-alert-error></jhi-alert-error>
 
   <jhi-alert></jhi-alert>

@@ -55,6 +55,7 @@ export class PonudeComponent implements AfterViewInit, OnChanges {
   public getSifraPostupka(): void {
     this.ponudeService.findSiftraPostupak(this.postupak).subscribe((res: IPonude[]) => {
       this.dataSource.data = res;
+      this.getTotalCost();
     });
   }
   // public loadAll(): void {
