@@ -1,12 +1,7 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { HttpHeaders, HttpResponse } from '@angular/common/http';
+import { AfterViewInit, Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest, Subscription } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
 import { ISpecifikacije } from '../specifikacije.model';
-
-import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/config/pagination.constants';
 import { SpecifikacijeService } from '../service/specifikacije.service';
 import { SpecifikacijeDeleteDialogComponent } from '../delete/specifikacije-delete-dialog.component';
 import { Account } from '../../../core/auth/account.model';
@@ -21,12 +16,10 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './specifikacije.component.html',
   styleUrls: ['./specifikacije.scss'],
 })
-export class SpecifikacijeComponent implements OnInit {
-  specifikacijes?: HttpResponse<ISpecifikacije[]>;
+export class SpecifikacijeComponent implements AfterViewInit, OnChanges, OnInit {
   account: Account | null = null;
-  authSubscription?: Subscription;
 
-  public resourceUrlExcelDownload = SERVER_API_URL + 'api/specifikacije/file';
+  // public resourceUrlExcelDownload = SERVER_API_URL + 'api/specifikacije/file';
   public displayedColumns = [
     'sifra postupka',
     'broj partije',
@@ -60,7 +53,7 @@ export class SpecifikacijeComponent implements OnInit {
   ) {}
 
   public getSifraPostupka(): void {
-    this.specifikacijaService.findSiftraPostupak(this.postupak).subscribe((res: ISpecifikacije[]) => {
+    this.specifikacijaService.findSiftraPostupak(456).subscribe((res: ISpecifikacije[]) => {
       this.dataSource.data = res;
     });
   }
@@ -75,6 +68,7 @@ export class SpecifikacijeComponent implements OnInit {
       }
     });
   }
+
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
@@ -105,7 +99,7 @@ export class SpecifikacijeComponent implements OnInit {
   //     this.getSifraPostupka();
   //   });
   // }
-  DownloadExcel(): void {
-    window.location.href = this.resourceUrlExcelDownload;
-  }
+  //   DownloadExcel(): void {
+  //     window.location.href = this.resourceUrlExcelDownload;
+  //   }
 }
