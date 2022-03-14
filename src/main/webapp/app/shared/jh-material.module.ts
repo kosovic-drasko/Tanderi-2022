@@ -24,6 +24,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { NgModule } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatPaginatorIntl } from '@angular/material/paginator';
+import { getDutchPaginatorIntl } from '../../dutch-paginator-intl';
 
 @NgModule({
   imports: [
@@ -80,6 +81,6 @@ import { MatPaginatorIntl } from '@angular/material/paginator';
     MatToolbarModule,
     MatFormFieldModule,
   ],
-  providers: [{ provide: MatPaginatorIntl }],
+  providers: [{ provide: MatPaginatorIntl, useValue: getDutchPaginatorIntl() }],
 })
 export class JhMaterialModule {}
