@@ -57,11 +57,11 @@ export class PonudeComponent implements AfterViewInit, OnChanges {
       this.dataSource.data = res;
     });
   }
-  public loadAll(): void {
-    this.ponudeService.query().subscribe((res: HttpResponse<IPonude[]>) => {
-      this.dataSource.data = res.body ?? [];
-    });
-  }
+  // public loadAll(): void {
+  //   this.ponudeService.query().subscribe((res: HttpResponse<IPonude[]>) => {
+  //     this.dataSource.data = res.body ?? [];
+  //   });
+  // }
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
