@@ -11,8 +11,7 @@
     -->
     <changeSet author="Drasko" id="view-vrednovanje">
         <createView catalogName="tenderi" schemaName="public" viewName="view_vrednovanje">
-            SELECT
-            view_vrednovanje0.id,
+            SELECT view_vrednovanje0.id,
             view_vrednovanje0.sifra_postupka,
             view_vrednovanje0.sifra_ponude,
             view_vrednovanje0.broj_partije,

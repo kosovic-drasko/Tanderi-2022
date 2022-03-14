@@ -18,8 +18,8 @@
         view_vrednovanje.procijenjena_vrijednost,
         view_vrednovanje.ponudjena_vrijednost,
         view_vrednovanje.rok_isporuke,
-
         ponudjaci.naziv_ponudjaca,
+        view_vrednovanje.sifra_ponudjaca,
         view_vrednovanje.naziv_proizvodjaca,
         view_vrednovanje.bod_cijena,
         view_vrednovanje.bod_rok,

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -16,7 +16,7 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './postupci.component.html',
   styleUrls: ['./postupci.scss'],
 })
-export class PostupciComponent implements OnInit {
+export class PostupciComponent implements OnInit, AfterViewInit {
   postupaks?: IPostupci[];
 
   public displayedColumns = ['sifra postupka', 'opis postupka', 'vrsta postupka', 'datum objave', 'broj tendera', 'delete', 'edit'];
