@@ -11,122 +11,108 @@
     <span jhiTranslate="tenderApp.viewVrednovanje.home.notFound">No viewVrednovanjes found</span>
   </div>
 
-  <div class="table-responsive" id="entities" *ngIf="viewVrednovanjes && viewVrednovanjes.length > 0">
-    <table class="table table-striped" aria-describedby="page-heading">
-      <thead>
-        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
-          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="sifraPostupka">
-            <span jhiTranslate="tenderApp.viewVrednovanje.sifraPostupka">Sifra Postupka</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="sifraPonude">
-            <span jhiTranslate="tenderApp.viewVrednovanje.sifraPonude">Sifra Ponude</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="brojPartije">
-            <span jhiTranslate="tenderApp.viewVrednovanje.brojPartije">Broj Partije</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="atc"><span jhiTranslate="tenderApp.viewVrednovanje.atc">Atc</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="inn"><span jhiTranslate="tenderApp.viewVrednovanje.inn">Inn</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="zasticeniNaziv">
-            <span jhiTranslate="tenderApp.viewVrednovanje.zasticeniNaziv">Zasticeni Naziv</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="farmaceutskiOblikLijeka">
-            <span jhiTranslate="tenderApp.viewVrednovanje.farmaceutskiOblikLijeka">Farmaceutski Oblik Lijeka</span>
-            <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="jacinaLijeka">
-            <span jhiTranslate="tenderApp.viewVrednovanje.jacinaLijeka">Jacina Lijeka</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="pakovanje">
-            <span jhiTranslate="tenderApp.viewVrednovanje.pakovanje">Pakovanje</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="trazenaKolicina">
-            <span jhiTranslate="tenderApp.viewVrednovanje.trazenaKolicina">Trazena Kolicina</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="procijenjenaVrijednost">
-            <span jhiTranslate="tenderApp.viewVrednovanje.procijenjenaVrijednost">Procijenjena Vrijednost</span>
-            <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="ponudjenaVrijednost">
-            <span jhiTranslate="tenderApp.viewVrednovanje.ponudjenaVrijednost">Ponudjena Vrijednost</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="rokIsporuke">
-            <span jhiTranslate="tenderApp.viewVrednovanje.rokIsporuke">Rok Isporuke</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="nazivProizvodjaca">
-            <span jhiTranslate="tenderApp.viewVrednovanje.nazivProizvodjaca">Naziv Proizvodjaca</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="nazivPonudjaca">
-            <span jhiTranslate="tenderApp.viewVrednovanje.nazivPonudjaca">Naziv Ponudjaca</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="bodCijena">
-            <span jhiTranslate="tenderApp.viewVrednovanje.bodCijena">Bod Cijena</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="bodRok">
-            <span jhiTranslate="tenderApp.viewVrednovanje.bodRok">Bod Rok</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="bodUkupno">
-            <span jhiTranslate="tenderApp.viewVrednovanje.bodUkupno">Bod Ukupno</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let viewVrednovanje of viewVrednovanjes; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/view-vrednovanje', viewVrednovanje.id, 'view']">{{ viewVrednovanje.id }}</a>
-          </td>
-          <td>{{ viewVrednovanje.sifraPostupka }}</td>
-          <td>{{ viewVrednovanje.sifraPonude }}</td>
-          <td>{{ viewVrednovanje.brojPartije }}</td>
-          <td>{{ viewVrednovanje.atc }}</td>
-          <td>{{ viewVrednovanje.inn }}</td>
-          <td>{{ viewVrednovanje.zasticeniNaziv }}</td>
-          <td>{{ viewVrednovanje.farmaceutskiOblikLijeka }}</td>
-          <td>{{ viewVrednovanje.jacinaLijeka }}</td>
-          <td>{{ viewVrednovanje.pakovanje }}</td>
-          <td>{{ viewVrednovanje.trazenaKolicina }}</td>
-          <td>{{ viewVrednovanje.procijenjenaVrijednost }}</td>
-          <td>{{ viewVrednovanje.ponudjenaVrijednost }}</td>
-          <td>{{ viewVrednovanje.rokIsporuke }}</td>
-          <td>{{ viewVrednovanje.nazivProizvodjaca }}</td>
-          <td>{{ viewVrednovanje.nazivPonudjaca }}</td>
-          <td>{{ viewVrednovanje.bodCijena }}</td>
-          <td>{{ viewVrednovanje.bodRok }}</td>
-          <td>{{ viewVrednovanje.bodUkupno }}</td>
-          <td class="text-end">
-            <div class="btn-group">
-              <button
-                type="submit"
-                [routerLink]="['/view-vrednovanje', viewVrednovanje.id, 'view']"
-                class="btn btn-info btn-sm"
-                data-cy="entityDetailsButton"
-              >
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
+  <div class="example-container mat-elevation-z8">
+    <table mat-table id="ExampleTable" matTableExporter [dataSource]="dataSource" matSort matSortStart="desc" #exporter="matTableExporter">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+      <ng-container matColumnDef="sifra postupka">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Sifra Postupka</th>
+        <td mat-cell *matCellDef="let element">{{ element.sifraPostupka }}</td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+      <ng-container matColumnDef="sifra ponude">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Sifra Ponude</th>
+        <td mat-cell *matCellDef="let element">{{ element.sifraPonude }}</td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+      <ng-container matColumnDef="broj partije">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Broj Partije</th>
+        <td mat-cell *matCellDef="let element">{{ element.brojPartije }}</td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+      <ng-container matColumnDef="atc">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Atc</th>
+        <td mat-cell *matCellDef="let element">{{ element.atc }}</td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+      <ng-container matColumnDef="inn">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Inn</th>
+        <td mat-cell *matCellDef="let element">{{ element.inn }}</td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+      <ng-container matColumnDef="zasticeni naziv">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Zasticeni Naziv</th>
+        <td mat-cell *matCellDef="let element">{{ element.zastceniNaziv }}</td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+      <ng-container matColumnDef="farmaceutski oblik">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Farmaceutski oblik</th>
+        <td mat-cell *matCellDef="let element">{{ element.farmaceutskiOblikLijeka }}</td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+      <ng-container matColumnDef="jacina lijeka">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Jacina lijeka</th>
+        <td mat-cell *matCellDef="let element">{{ element.jacinaLijeka }}</td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+      <ng-container matColumnDef="pakovanje">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Pakovanje</th>
+        <td mat-cell *matCellDef="let element">{{ element.pakovanje }}</td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <ng-container matColumnDef="procijenjena vrijednost">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Procijenjena vrijednost</th>
+        <td mat-cell *matCellDef="let element">{{ element.procijenjenaVrijednost }}</td>
+        <td mat-footer-cell *matFooterCellDef>{{ getTotalCostProcijenjena() }}</td>
+      </ng-container>
+      <ng-container matColumnDef="kolicina">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Kolicina</th>
+        <td mat-cell *matCellDef="let element">{{ element.trazenaKolicina }}</td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+      <ng-container matColumnDef="ponudjena vrijednost">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Ponudjena Cijena</th>
+        <td mat-cell *matCellDef="let element">{{ element.ponudjenaVrijednost }}</td>
+        <td mat-footer-cell *matFooterCellDef>{{ getTotalCost() }}</td>
+      </ng-container>
+      <ng-container matColumnDef="rok isporuke">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Rok Isporuke</th>
+        <td mat-cell *matCellDef="let element">{{ element.rokIsporuke }}</td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+      <ng-container matColumnDef="naziv ponudjaca">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Ponudjac</th>
+        <td mat-cell *matCellDef="let element">{{ element.nazivPonudjaca }}</td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+      <ng-container matColumnDef="naziv proizvodjaca">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Proizvodjac</th>
+        <td mat-cell *matCellDef="let element">{{ element.nazivProizvodjaca }}</td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+      <ng-container matColumnDef="bod cijena">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Bod Cijena</th>
+        <td mat-cell *matCellDef="let element">{{ element.bodCijena }}</td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+      <ng-container matColumnDef="bod rok">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Bod Rok</th>
+        <td mat-cell *matCellDef="let element">{{ element.bodRok }}</td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+      <ng-container matColumnDef="bod ukupno">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Bod Ukupno</th>
+        <td mat-cell *matCellDef="let element">{{ element.bodUkupno }}</td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+      <tr class="heder" mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
     </table>
-  </div>
-
-  <div *ngIf="viewVrednovanjes && viewVrednovanjes.length > 0">
-    <div class="d-flex justify-content-center">
-      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
-    </div>
-
-    <div class="d-flex justify-content-center">
-      <ngb-pagination
-        [collectionSize]="totalItems"
-        [(page)]="ngbPaginationPage"
-        [pageSize]="itemsPerPage"
-        [maxSize]="5"
-        [rotate]="true"
-        [boundaryLinks]="true"
-        (pageChange)="loadPage($event)"
-      ></ngb-pagination>
-    </div>
+    <mat-paginator class="mat-paginator-sticky" [pageSizeOptions]="[20, 50, 100]" showFirstLastButtons></mat-paginator>
   </div>
 </div>

@@ -67,7 +67,7 @@ public class ViewVrednovanjeResource {
     /**
      * {@code PUT  /view-vrednovanjes/:id} : Updates an existing viewVrednovanje.
      *
-     * @param id the id of the viewVrednovanje to save.
+     * @param id              the id of the viewVrednovanje to save.
      * @param viewVrednovanje the viewVrednovanje to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated viewVrednovanje,
      * or with status {@code 400 (Bad Request)} if the viewVrednovanje is not valid,
@@ -101,7 +101,7 @@ public class ViewVrednovanjeResource {
     /**
      * {@code PATCH  /view-vrednovanjes/:id} : Partial updates given fields of an existing viewVrednovanje, field will ignore if it is null
      *
-     * @param id the id of the viewVrednovanje to save.
+     * @param id              the id of the viewVrednovanje to save.
      * @param viewVrednovanje the viewVrednovanje to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated viewVrednovanje,
      * or with status {@code 400 (Bad Request)} if the viewVrednovanje is not valid,
@@ -235,5 +235,10 @@ public class ViewVrednovanjeResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/vrednovanje/{sifraPostupka}")
+    public List<ViewVrednovanje> getViewVrednovanje(@PathVariable Integer sifraPostupka) {
+        return viewVrednovanjeRepository.findBySifraPostupka(sifraPostupka);
     }
 }

@@ -4,8 +4,8 @@
 
   <input type="radio" name="tabset" id="tab2" aria-controls="dunkles" />
   <label for="tab2"><span jhiTranslate="tender-home.offers">Offers</span></label>
-  <!--  <input type="radio" name="tabset" id="tab3" aria-controls="dunkles" />-->
-  <!--  <label for="tab3"><span jhiTranslate="tenderi-home.scoring">Scoring</span></label>-->
+  <input type="radio" name="tabset" id="tab3" aria-controls="dunkles" />
+  <label for="tab3"><span>Vrednovanje</span></label>
 
   <!--  <input type="radio" name="tabset" id="tab4" aria-controls="dunkles" />-->
   <!--  <label for="tab4"><span jhiTranslate="tenderi-home.first-ranked">First-ranked</span></label>-->
@@ -26,9 +26,9 @@
       <jhi-ponude [postupak]="sifra"></jhi-ponude>
     </section>
 
-    <!--    <section id="dunkles" class="tab-panel">-->
-    <!--      <jhi-view-vrednovanje [postupak]="sifra"></jhi-view-vrednovanje>-->
-    <!--    </section>-->
+    <section id="dunkles" class="tab-panel">
+      <jhi-view-vrednovanje [postupak]="sifra"></jhi-view-vrednovanje>
+    </section>
     <!--    <section id="prvorangirani" class="tab-panel">-->
     <!--      <jhi-prvorangirani [postupak]="sifra"></jhi-prvorangirani>-->
     <!--    </section>-->

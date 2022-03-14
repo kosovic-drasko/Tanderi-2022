@@ -1,117 +1,97 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpHeaders, HttpResponse } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AfterViewInit, Component, Input, OnChanges, ViewChild } from '@angular/core';
 
 import { IViewVrednovanje } from '../view-vrednovanje.model';
-
-import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/config/pagination.constants';
 import { ViewVrednovanjeService } from '../service/view-vrednovanje.service';
-import { ViewVrednovanjeDeleteDialogComponent } from '../delete/view-vrednovanje-delete-dialog.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { PonudeService } from '../../ponude/service/ponude.service';
 
 @Component({
   selector: 'jhi-view-vrednovanje',
   templateUrl: './view-vrednovanje.component.html',
+  styleUrls: ['./view-vrednovanje.scss'],
 })
-export class ViewVrednovanjeComponent implements OnInit {
+export class ViewVrednovanjeComponent implements AfterViewInit, OnChanges {
   viewVrednovanjes?: IViewVrednovanje[];
-  isLoading = false;
-  totalItems = 0;
-  itemsPerPage = ITEMS_PER_PAGE;
-  page?: number;
-  predicate!: string;
-  ascending!: boolean;
-  ngbPaginationPage = 1;
+  // ponude_ponudjaci?: IPonudePonudjaci[];
+  ukupnaPonudjena?: number | null | undefined;
+  ukupnaProcijenjena?: number | null | undefined;
+  nadjiPonudjaca?: any;
+  public displayedColumns = [
+    'sifra postupka',
+    'sifra ponude',
+    'broj partije',
+    'atc',
+    'inn',
+    'zasticeni naziv',
+    'procijenjena vrijednost',
+    'kolicina',
+    'ponudjena vrijednost',
+    'farmaceutski oblik',
+    'jacina lijeka',
+    'pakovanje',
+    'rok isporuke',
+    'naziv ponudjaca',
+    'naziv proizvodjaca',
+    'bod cijena',
+    'bod rok',
+    'bod ukupno',
+  ];
+  public dataSource = new MatTableDataSource<IViewVrednovanje>();
+  sifraPostupka?: any;
+  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @Input() postupak: any;
 
-  constructor(
-    protected viewVrednovanjeService: ViewVrednovanjeService,
-    protected activatedRoute: ActivatedRoute,
-    protected router: Router,
-    protected modalService: NgbModal
-  ) {}
+  constructor(protected vrednovanjeService: ViewVrednovanjeService, protected ponudeService: PonudeService) {}
 
-  loadPage(page?: number, dontNavigate?: boolean): void {
-    this.isLoading = true;
-    const pageToLoad: number = page ?? this.page ?? 1;
-
-    this.viewVrednovanjeService
-      .query({
-        page: pageToLoad - 1,
-        size: this.itemsPerPage,
-        sort: this.sort(),
-      })
-      .subscribe({
-        next: (res: HttpResponse<IViewVrednovanje[]>) => {
-          this.isLoading = false;
-          this.onSuccess(res.body, res.headers, pageToLoad, !dontNavigate);
-        },
-        error: () => {
-          this.isLoading = false;
-          this.onError();
-        },
-      });
+  getTotalCost(): any {
+    return this.viewVrednovanjes?.map(t => t.ponudjenaVrijednost).reduce((acc, value) => acc! + value!, 0);
   }
 
-  ngOnInit(): void {
-    this.handleNavigation();
+  getTotalCostProcijenjena(): any {
+    return this.viewVrednovanjes?.map(t => t.procijenjenaVrijednost).reduce((acc, value) => acc! + value!, 0);
   }
 
-  trackId(index: number, item: IViewVrednovanje): number {
-    return item.id!;
-  }
-
-  delete(viewVrednovanje: IViewVrednovanje): void {
-    const modalRef = this.modalService.open(ViewVrednovanjeDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.viewVrednovanje = viewVrednovanje;
-    // unsubscribe not needed because closed completes on modal close
-    modalRef.closed.subscribe(reason => {
-      if (reason === 'deleted') {
-        this.loadPage();
-      }
+  public getSifraPonude(): void {
+    this.vrednovanjeService.findPostupak(this.nadjiPonudjaca).subscribe((res: IViewVrednovanje[]) => {
+      this.dataSource.data = res;
+      this.viewVrednovanjes = res;
+      this.getTotalCost();
+      this.getTotalCostProcijenjena();
     });
   }
 
-  protected sort(): string[] {
-    const result = [this.predicate + ',' + (this.ascending ? ASC : DESC)];
-    if (this.predicate !== 'id') {
-      result.push('id');
-    }
-    return result;
-  }
+  // public getSifraPostupkaPonudePonudjaci(): void {
+  //     this.ponudeService.findSiftraPostupakPonudePonudjaci(this.postupak).subscribe((res: IPonudePonudjaci[]) => {
+  //       this.ponude_ponudjaci = res;
+  //     });
 
-  protected handleNavigation(): void {
-    combineLatest([this.activatedRoute.data, this.activatedRoute.queryParamMap]).subscribe(([data, params]) => {
-      const page = params.get('page');
-      const pageNumber = +(page ?? 1);
-      const sort = (params.get(SORT) ?? data['defaultSort']).split(',');
-      const predicate = sort[0];
-      const ascending = sort[1] === ASC;
-      if (pageNumber !== this.page || predicate !== this.predicate || ascending !== this.ascending) {
-        this.predicate = predicate;
-        this.ascending = ascending;
-        this.loadPage(pageNumber, true);
-      }
+  doFilter = (iznos: string): any => {
+    this.dataSource.filter = iznos.trim().toLocaleLowerCase();
+    this.ukupnaPonudjena = this.dataSource.filteredData.map(t => t.ponudjenaVrijednost).reduce((acc, value) => acc! + value!, 0);
+    this.ukupnaProcijenjena = this.dataSource.filteredData.map(t => t.procijenjenaVrijednost).reduce((acc, value) => acc! + value!, 0);
+  };
+
+  public getAllPostupciVrednovanjei(): void {
+    this.vrednovanjeService.findPostupak(this.postupak).subscribe((res: IViewVrednovanje[]) => {
+      this.dataSource.data = res;
+      this.viewVrednovanjes = res;
+      this.getTotalCost();
+      this.getTotalCostProcijenjena();
+      // eslint-disable-next-line no-console
+      console.log(res);
     });
   }
 
-  protected onSuccess(data: IViewVrednovanje[] | null, headers: HttpHeaders, page: number, navigate: boolean): void {
-    this.totalItems = Number(headers.get('X-Total-Count'));
-    this.page = page;
-    if (navigate) {
-      this.router.navigate(['/view-vrednovanje'], {
-        queryParams: {
-          page: this.page,
-          size: this.itemsPerPage,
-          sort: this.predicate + ',' + (this.ascending ? ASC : DESC),
-        },
-      });
-    }
-    this.viewVrednovanjes = data ?? [];
-    this.ngbPaginationPage = this.page;
+  ngOnChanges(): void {
+    this.getAllPostupciVrednovanjei();
+    // this.getSifraPostupkaPonudePonudjaci();
   }
 
-  protected onError(): void {
-    this.ngbPaginationPage = this.page ?? 1;
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 }

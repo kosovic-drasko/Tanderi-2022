@@ -12,6 +12,7 @@ export type EntityArrayResponseType = HttpResponse<IViewVrednovanje[]>;
 
 @Injectable({ providedIn: 'root' })
 export class ViewVrednovanjeService {
+  public resourceUrlPostupak = this.applicationConfigService.getEndpointFor('api/vrednovanje');
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/view-vrednovanjes');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
@@ -19,7 +20,9 @@ export class ViewVrednovanjeService {
   create(viewVrednovanje: IViewVrednovanje): Observable<EntityResponseType> {
     return this.http.post<IViewVrednovanje>(this.resourceUrl, viewVrednovanje, { observe: 'response' });
   }
-
+  findPostupak(sifraPostupka: number): any {
+    return this.http.get<IViewVrednovanje>(`${this.resourceUrlPostupak}/${sifraPostupka}`);
+  }
   update(viewVrednovanje: IViewVrednovanje): Observable<EntityResponseType> {
     return this.http.put<IViewVrednovanje>(
       `${this.resourceUrl}/${getViewVrednovanjeIdentifier(viewVrednovanje) as number}`,
