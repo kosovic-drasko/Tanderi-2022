@@ -13,11 +13,14 @@ export type EntityArrayResponseType = HttpResponse<IPrvorangirani[]>;
 @Injectable({ providedIn: 'root' })
 export class PrvorangiraniService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/prvorangiranis');
-
+  protected resourceUrlPostupak = this.applicationConfigService.getEndpointFor('api/prvorangirani');
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
   create(prvorangirani: IPrvorangirani): Observable<EntityResponseType> {
     return this.http.post<IPrvorangirani>(this.resourceUrl, prvorangirani, { observe: 'response' });
+  }
+  findPostupak(sifraPostupka: number): any {
+    return this.http.get<IPrvorangirani>(`${this.resourceUrlPostupak}/${sifraPostupka}`);
   }
 
   update(prvorangirani: IPrvorangirani): Observable<EntityResponseType> {

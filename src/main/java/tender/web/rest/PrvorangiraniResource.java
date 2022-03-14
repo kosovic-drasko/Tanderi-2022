@@ -233,4 +233,9 @@ public class PrvorangiraniResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
+
+    @GetMapping("/prvorangirani/{sifraPostupka}")
+    public List<Prvorangirani> findByPostupakPrvorangirani(@PathVariable Integer sifraPostupka) {
+        return prvorangiraniRepository.findBySifraPostupka(sifraPostupka);
+    }
 }
