@@ -9,6 +9,7 @@ import { JhMaterialModule } from '../../shared/jh-material.module';
 import { ViewVrednovanjeModule } from '../view-vrednovanje/view-vrednovanje.module';
 import { PrvorangiraniModule } from '../prvorangirani/prvorangirani.module';
 import { HvalePonudeModule } from '../hvale-ponude/hvale-ponude.module';
+import { PonudeModule } from '../ponude/ponude.module';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { HvalePonudeModule } from '../hvale-ponude/hvale-ponude.module';
     ViewVrednovanjeModule,
     PrvorangiraniModule,
     HvalePonudeModule,
+    PonudeModule,
   ],
   declarations: [TenderiHomeComponent],
 })

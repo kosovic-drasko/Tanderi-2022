@@ -22,6 +22,7 @@ import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
 import tender.domain.Ponude;
+import tender.domain.Specifikacije;
 import tender.repository.PonudeRepository;
 import tender.web.rest.errors.BadRequestAlertException;
 
@@ -53,6 +54,12 @@ public class PonudeResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new ponude, or with status {@code 400 (Bad Request)} if the ponude has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+
+    @GetMapping("/ponude/{sifra_postupka}")
+    public List<Ponude> getPonude(@PathVariable Integer sifra_postupka) {
+        return ponudeRepository.findBySifraPostupka(sifra_postupka);
+    }
+
     @PostMapping("/ponudes")
     public ResponseEntity<Ponude> createPonude(@Valid @RequestBody Ponude ponude) throws URISyntaxException {
         log.debug("REST request to save Ponude : {}", ponude);

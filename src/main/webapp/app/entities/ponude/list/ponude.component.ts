@@ -1,117 +1,108 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, ViewChild } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { IPonude } from '../ponude.model';
+import { IPonude, Ponude } from '../ponude.model';
 
 import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/config/pagination.constants';
 import { PonudeService } from '../service/ponude.service';
 import { PonudeDeleteDialogComponent } from '../delete/ponude-delete-dialog.component';
+import { Account } from '../../../core/auth/account.model';
+import { MatTableDataSource } from '@angular/material/table';
+import { ISpecifikacije } from '../../specifikacije/specifikacije.model';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { AccountService } from '../../../core/auth/account.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'jhi-ponude',
   templateUrl: './ponude.component.html',
+  styleUrls: ['./ponude.component.scss'],
 })
-export class PonudeComponent implements OnInit {
-  ponudes?: IPonude[];
-  isLoading = false;
-  totalItems = 0;
-  itemsPerPage = ITEMS_PER_PAGE;
-  page?: number;
-  predicate!: string;
-  ascending!: boolean;
-  ngbPaginationPage = 1;
+export class PonudeComponent implements AfterViewInit, OnChanges {
+  account: Account | null = null;
+  ukupnaPonudjena?: number;
+  ponude?: IPonude[];
+  // public resourceUrlExcelDownload = SERVER_API_URL + 'api/specifikacije/file';
+  public displayedColumns = [
+    'sifra postupka',
+    'sifraPonude',
+    'brojPartije',
+    'sifra ponudjaca',
+    'naziv proizvodjaca',
+    'zasticeni naziv',
+    'ponudjena vrijednost',
+    'rok isporuke',
+    'edit',
+    'delete',
+  ];
+
+  public dataSource = new MatTableDataSource<IPonude>();
+
+  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @Input() postupak?: any;
+  @ViewChild('fileInput') fileInput: any;
+  message: string | undefined;
 
   constructor(
     protected ponudeService: PonudeService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
-    protected modalService: NgbModal
+    protected modalService: NgbModal,
+    private accountService: AccountService
   ) {}
 
-  loadPage(page?: number, dontNavigate?: boolean): void {
-    this.isLoading = true;
-    const pageToLoad: number = page ?? this.page ?? 1;
-
-    this.ponudeService
-      .query({
-        page: pageToLoad - 1,
-        size: this.itemsPerPage,
-        sort: this.sort(),
-      })
-      .subscribe({
-        next: (res: HttpResponse<IPonude[]>) => {
-          this.isLoading = false;
-          this.onSuccess(res.body, res.headers, pageToLoad, !dontNavigate);
-        },
-        error: () => {
-          this.isLoading = false;
-          this.onError();
-        },
-      });
+  public getSifraPostupka(): void {
+    this.ponudeService.findSiftraPostupak(this.postupak).subscribe((res: IPonude[]) => {
+      this.dataSource.data = res;
+    });
+  }
+  public loadAll(): void {
+    this.ponudeService.query().subscribe((res: HttpResponse<IPonude[]>) => {
+      this.dataSource.data = res.body ?? [];
+    });
   }
 
-  ngOnInit(): void {
-    this.handleNavigation();
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
-  trackId(index: number, item: IPonude): number {
-    return item.id!;
+  // doFilter = (iznos: string): any => {
+  //   this.dataSource.filter = iznos.trim().toLocaleLowerCase();
+  // };
+  doFilter = (iznos: string): any => {
+    this.dataSource.filter = iznos.trim().toLocaleLowerCase();
+    this.ukupnaPonudjena = this.dataSource.filteredData.map(t => t.ponudjenaVrijednost).reduce((acc, value) => acc! + value!, 0);
+  };
+  getTotalCost(): any {
+    return this.ponude?.map(t => t.ponudjenaVrijednost).reduce((acc, value) => acc! + value!, 0);
   }
 
   delete(ponude: IPonude): void {
     const modalRef = this.modalService.open(PonudeDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.ponude = ponude;
+    modalRef.componentInstance.ponude = Ponude;
     // unsubscribe not needed because closed completes on modal close
     modalRef.closed.subscribe(reason => {
       if (reason === 'deleted') {
-        this.loadPage();
+        this.getSifraPostupka();
       }
     });
   }
-
-  protected sort(): string[] {
-    const result = [this.predicate + ',' + (this.ascending ? ASC : DESC)];
-    if (this.predicate !== 'id') {
-      result.push('id');
-    }
-    return result;
+  isAuthenticated(): boolean {
+    return this.accountService.isAuthenticated();
   }
 
-  protected handleNavigation(): void {
-    combineLatest([this.activatedRoute.data, this.activatedRoute.queryParamMap]).subscribe(([data, params]) => {
-      const page = params.get('page');
-      const pageNumber = +(page ?? 1);
-      const sort = (params.get(SORT) ?? data['defaultSort']).split(',');
-      const predicate = sort[0];
-      const ascending = sort[1] === ASC;
-      if (pageNumber !== this.page || predicate !== this.predicate || ascending !== this.ascending) {
-        this.predicate = predicate;
-        this.ascending = ascending;
-        this.loadPage(pageNumber, true);
-      }
-    });
-  }
-
-  protected onSuccess(data: IPonude[] | null, headers: HttpHeaders, page: number, navigate: boolean): void {
-    this.totalItems = Number(headers.get('X-Total-Count'));
-    this.page = page;
-    if (navigate) {
-      this.router.navigate(['/ponude'], {
-        queryParams: {
-          page: this.page,
-          size: this.itemsPerPage,
-          sort: this.predicate + ',' + (this.ascending ? ASC : DESC),
-        },
-      });
-    }
-    this.ponudes = data ?? [];
-    this.ngbPaginationPage = this.page;
-  }
-
-  protected onError(): void {
-    this.ngbPaginationPage = this.page ?? 1;
+  // ngOnInit(): void {
+  //   this.getSifraPostupka();
+  //   // this.loadAll();
+  // }
+  ngOnChanges(): void {
+    this.getSifraPostupka();
+    // this.getSifraPostupkaPonudePonudjaci();
   }
 }
