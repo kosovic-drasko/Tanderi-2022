@@ -47,19 +47,6 @@ public class PonudeResource {
         this.ponudeRepository = ponudeRepository;
     }
 
-    /**
-     * {@code POST  /ponudes} : Create a new ponude.
-     *
-     * @param ponude the ponude to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new ponude, or with status {@code 400 (Bad Request)} if the ponude has already an ID.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
-
-    @GetMapping("/ponude/{sifra_postupka}")
-    public List<Ponude> getPonude(@PathVariable Integer sifra_postupka) {
-        return ponudeRepository.findBySifraPostupka(sifra_postupka);
-    }
-
     @PostMapping("/ponudes")
     public ResponseEntity<Ponude> createPonude(@Valid @RequestBody Ponude ponude) throws URISyntaxException {
         log.debug("REST request to save Ponude : {}", ponude);
@@ -76,7 +63,7 @@ public class PonudeResource {
     /**
      * {@code PUT  /ponudes/:id} : Updates an existing ponude.
      *
-     * @param id the id of the ponude to save.
+     * @param id     the id of the ponude to save.
      * @param ponude the ponude to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated ponude,
      * or with status {@code 400 (Bad Request)} if the ponude is not valid,
@@ -110,7 +97,7 @@ public class PonudeResource {
     /**
      * {@code PATCH  /ponudes/:id} : Partial updates given fields of an existing ponude, field will ignore if it is null
      *
-     * @param id the id of the ponude to save.
+     * @param id     the id of the ponude to save.
      * @param ponude the ponude to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated ponude,
      * or with status {@code 400 (Bad Request)} if the ponude is not valid,
@@ -220,5 +207,15 @@ public class PonudeResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/ponude/{sifra_postupka}")
+    public List<Ponude> getPonude(@PathVariable Integer sifra_postupka) {
+        return ponudeRepository.findBySifraPostupka(sifra_postupka);
+    }
+
+    @GetMapping("/ponude-sifra-ponude/{sifra_ponude}")
+    public List<Ponude> getSifraPonude(@PathVariable Integer sifra_ponude) {
+        return ponudeRepository.findBySifraPonude(sifra_ponude);
     }
 }

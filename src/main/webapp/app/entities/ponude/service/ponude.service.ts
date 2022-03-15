@@ -14,11 +14,18 @@ export type EntityArrayResponseType = HttpResponse<IPonude[]>;
 export class PonudeService {
   public resourceUrlSifraPonude = this.applicationConfigService.getEndpointFor('api/ponude');
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/ponudes');
-
+  public resourceUrlPonudePonudjaci = this.applicationConfigService.getEndpointFor('api/ponudjaci_ponude');
+  public resourceUrlPonudedSifraPonude = this.applicationConfigService.getEndpointFor('api/ponude-sifra-ponude');
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
   findSiftraPostupak(sifra_postupka: number): any {
     return this.http.get<IPonude[]>(`${this.resourceUrlSifraPonude}/${sifra_postupka}`);
+  }
+  findSiftraPostupakPonudePonudjaci(sifra_postupka: number): any {
+    return this.http.get<IPonude[]>(`${this.resourceUrlPonudePonudjaci}/${sifra_postupka}`);
+  }
+  findSiftraPonude(sifra_ponude: number): any {
+    return this.http.get<IPonude[]>(`${this.resourceUrlPonudedSifraPonude}/${sifra_ponude}`);
   }
   create(ponude: IPonude): Observable<EntityResponseType> {
     return this.http.post<IPonude>(this.resourceUrl, ponude, { observe: 'response' });
