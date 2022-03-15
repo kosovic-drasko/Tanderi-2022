@@ -23,7 +23,7 @@ export class PonudeComponent implements AfterViewInit, OnChanges {
   ponude?: IPonude[];
   account: Account | null = null;
   // authSubscription?: Subscription;
-  ukupnaPonudjena?: number;
+  ukupnaPonudjena?: number | null | undefined;
   nadjiPonudjaca?: any;
   // public resourceUrlExcelDownload = SERVER_API_URL + 'api/specifikacije/file';
   public displayedColumns = [
@@ -61,6 +61,9 @@ export class PonudeComponent implements AfterViewInit, OnChanges {
   public getSifraPostupka(): void {
     this.ponudeService.findSiftraPostupak(this.postupak).subscribe((res: IPonude[]) => {
       this.dataSource.data = res;
+      this.getTotalCost();
+      // eslint-disable-next-line no-console
+      // console.log("----------------", this.getTotalCost() )
     });
   }
 
@@ -97,6 +100,7 @@ export class PonudeComponent implements AfterViewInit, OnChanges {
   ngOnChanges(): void {
     this.getSifraPostupka();
     this.getSifraPostupkaPonudePonudjaci();
+    this.getTotalCost();
   }
 
   isAuthenticated(): boolean {
@@ -132,9 +136,9 @@ export class PonudeComponent implements AfterViewInit, OnChanges {
     });
   }
 
-  open(content: any): any {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
-  }
+  // open(content: any): any {
+  //   this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
+  // }
 
   // open1(content1: any): any {
   //   this.modalService.open(content1, { ariaLabelledBy: 'modal-basic-title' });

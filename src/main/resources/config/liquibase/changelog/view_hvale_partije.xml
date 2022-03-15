@@ -1,0 +1,23 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="Drasko" id="view_hvale_partije">
+        <createView catalogName="tenderi" schemaName="public" viewName="view_hvale_partije">
+            SELECT
+            specifikacije.id,
+            specifikacije.broj_partije,
+            specifikacije.inn,
+            specifikacije.farmaceutski_oblik_lijeka,
+            specifikacije.pakovanje,
+            specifikacije.trazena_kolicina,
+            specifikacije.procijenjena_vrijednost,
+            specifikacije.sifra_postupka
+            FROM specifikacije
+            WHERE specifikacije.sifra_postupka = 456 AND
+            specifikacije.broj_partije NOT IN (SELECT
+            view_prvorangirani.broj_partije
+            FROM view_prvorangirani
+            WHERE view_prvorangirani.sifra_postupka = 1)
+        </createView>
+
+    </changeSet>
+</databaseChangeLog>

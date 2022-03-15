@@ -10,13 +10,10 @@
   <input type="radio" name="tabset" id="tab4" aria-controls="dunkles" />
   <label for="tab4"><span>Prvorangirani</span></label>
 
-  <!--  <input type="radio" name="tabset" id="tab5" aria-controls="dunkles" />-->
-  <!--  <label matTooltip="Nije prilozena nijedna ponuda ili je neispavna, pa ih treba ponovo raspisati" for="tab5"-->
-  <!--    ><span jhiTranslate="tenderi-home.missing">Missing</span></label-->
-  <!--  >-->
-
-  <!--  <input type="radio" name="tabset" id="tab6" aria-controls="dunkles" />-->
-  <!--  <label for="tab6"><span jhiTranslate="tenderi-home.contract">Contract</span></label>-->
+  <input type="radio" name="tabset" id="tab5" aria-controls="dunkles" />
+  <label matTooltip="Nije prilozena nijedna ponuda ili je neispavna, pa ih treba ponovo raspisati" for="tab5"
+    ><span>Partije koje nedostaju</span></label
+  >
 
   <div class="tab-panels">
     <section id="marzen" class="tab-panel">
@@ -32,8 +29,8 @@
     <section id="prvorangirani" class="tab-panel">
       <jhi-prvorangirani [postupak]="sifra"></jhi-prvorangirani>
     </section>
-    <!--    <section id="hvale" class="tab-panel">-->
-    <!--      <jhi-hvale-ponude [postupak]="sifra"></jhi-hvale-ponude>-->
-    <!--    </section>-->
+    <section id="hvale" class="tab-panel">
+      <jhi-hvale-ponude [postupak]="sifra"></jhi-hvale-ponude>
+    </section>
   </div>
 </div>

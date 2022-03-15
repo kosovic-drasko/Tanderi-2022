@@ -87,6 +87,8 @@ export class ViewVrednovanjeComponent implements AfterViewInit, OnChanges {
 
   ngOnChanges(): void {
     this.getAllPostupciVrednovanjei();
+    this.getTotalCost();
+    this.getTotalCostProcijenjena();
     // this.getSifraPostupkaPonudePonudjaci();
   }
 

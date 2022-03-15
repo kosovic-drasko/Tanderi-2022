@@ -203,4 +203,10 @@ public class HvalePonudeResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
+
+    @GetMapping("/hvale/{sifra}")
+    public List<HvalePonude> getHvalePonude(@PathVariable Integer sifra) {
+        List<HvalePonude> hvalePonude = hvalePonudeRepository.HvalePonude(sifra);
+        return hvalePonude;
+    }
 }
