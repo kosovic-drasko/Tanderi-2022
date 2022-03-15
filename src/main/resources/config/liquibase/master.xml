@@ -23,5 +23,5 @@
     <include file="config/liquibase/changelog/create-view-maximalni_bod.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/create-view-prvorangirani.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/ViewPonudjaciPonude.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/view_hvale_partije.xml" relativeToChangelogFile="false"/>
+
 </databaseChangeLog>
