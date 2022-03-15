@@ -1,9 +1,8 @@
 import { AfterViewInit, Component, Input, OnChanges, ViewChild } from '@angular/core';
-import { HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { IPonude, Ponude } from '../ponude.model';
+import { IPonude } from '../ponude.model';
 
 import { PonudeService } from '../service/ponude.service';
 import { PonudeDeleteDialogComponent } from '../delete/ponude-delete-dialog.component';

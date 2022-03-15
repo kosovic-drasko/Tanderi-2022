@@ -19,7 +19,7 @@
     "enableHibernateCache": true,
     "enableSwaggerCodegen": false,
     "enableTranslation": true,
-    "entities": ["Postupci", "Ponudjaci", "Specifikacije", "Ponude", "ViewVrednovanje", "Prvorangirani", "HvalePonude"],
+    "entities": ["Postupci", "Ponudjaci", "Specifikacije", "Ponude", "ViewVrednovanje", "Prvorangirani", "HvalePonude", "PonudePonudjaci"],
     "entitySuffix": "",
     "herokuAppName": "tenderi",
     "herokuDeployType": "git",

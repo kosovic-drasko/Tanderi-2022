@@ -4,6 +4,14 @@
     {
       "fieldName": "sifraPostupka",
       "fieldType": "Integer"
+    },
+    {
+      "fieldName": "sifraPonude",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "nazivPonudjaca",
+      "fieldType": "String"
     }
   ],
   "name": "PonudePonudjaci",
