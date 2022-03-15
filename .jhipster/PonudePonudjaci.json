@@ -1,0 +1,14 @@
+{
+  "changelogDate": "20220315081531",
+  "fields": [
+    {
+      "fieldName": "sifraPostupka",
+      "fieldType": "Integer"
+    }
+  ],
+  "name": "PonudePonudjaci",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "no"
+}
