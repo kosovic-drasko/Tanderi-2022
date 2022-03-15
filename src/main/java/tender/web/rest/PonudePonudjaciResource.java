@@ -185,4 +185,9 @@ public class PonudePonudjaciResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
+
+    @GetMapping("/ponude_ponudjaci/{sifraPostupka}")
+    public List<PonudePonudjaci> allPonudjaciPonudeSifraPostupka(@PathVariable Integer sifraPostupka) {
+        return ponudePonudjaciRepository.findBySifraPostupka(sifraPostupka);
+    }
 }

@@ -11,7 +11,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { AccountService } from '../../../core/auth/account.service';
-import { IPonudePonudjaci } from '../../ponude-ponudjaci/ponude-ponudjaci.model';
+import { IPonudePonudjaci } from 'app/entities/ponude-ponudjaci/ponude-ponudjaci.model';
 
 @Component({
   selector: 'jhi-ponude',
@@ -45,7 +45,7 @@ export class PonudeComponent implements AfterViewInit, OnChanges {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @Input() postupak?: any;
   @ViewChild('fileInput') fileInput: any;
-  message: string | undefined;
+
   constructor(
     protected ponudeService: PonudeService,
     protected activatedRoute: ActivatedRoute,
@@ -53,15 +53,11 @@ export class PonudeComponent implements AfterViewInit, OnChanges {
     protected modalService: NgbModal,
     private accountService: AccountService
   ) {}
-  refresh(): void {
-    const currentUrl = this.router.url;
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([currentUrl]);
-    });
-  }
+
   getTotalCost(): any {
     return this.ponude?.map(t => t.ponudjenaVrijednost).reduce((acc, value) => acc! + value!, 0);
   }
+
   public getSifraPostupka(): void {
     this.ponudeService.findSiftraPostupak(this.postupak).subscribe((res: IPonude[]) => {
       this.dataSource.data = res;
@@ -74,9 +70,12 @@ export class PonudeComponent implements AfterViewInit, OnChanges {
       this.getTotalCost();
     });
   }
+
   public getSifraPostupkaPonudePonudjaci(): void {
     this.ponudeService.findSiftraPostupakPonudePonudjaci(this.postupak).subscribe((res: IPonudePonudjaci[]) => {
       this.ponude_ponudjaci = res;
+      // eslint-disable-next-line no-console
+      console.log('to je ---------', res);
     });
   }
 
@@ -97,17 +96,19 @@ export class PonudeComponent implements AfterViewInit, OnChanges {
 
   ngOnChanges(): void {
     this.getSifraPostupka();
-    // this.getSifraPostupkaPonudePonudjaci();
+    this.getSifraPostupkaPonudePonudjaci();
   }
 
   isAuthenticated(): boolean {
     return this.accountService.isAuthenticated();
   }
+
   public getSifraPostupkaPonudes(): void {
     this.ponudeService.findSiftraPostupak(this.postupak).subscribe((res: IPonude[]) => {
       this.ponude = res;
     });
   }
+
   // uploadFile(): any {
   //   const formData = new FormData();
   //   formData.append('uploadfiles', this.fileInput.nativeElement.files[0]);

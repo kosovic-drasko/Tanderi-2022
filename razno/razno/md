@@ -10,3 +10,5 @@ java.time.LocalDate
 heroku buildpacks:clear
 kad cekiram to se vraca u stanje koje je bilo prije
 ne cekirno znaci da osatavljem nove promjene za te stavke
+
+// eslint-disable-next-line no-console

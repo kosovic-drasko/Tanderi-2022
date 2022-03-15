@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
-import { IPonudePonudjaci, getPonudePonudjaciIdentifier } from '../ponude-ponudjaci.model';
+import { IPonudePonudjaci } from '../ponude-ponudjaci.model';
 
 export type EntityResponseType = HttpResponse<IPonudePonudjaci>;
 export type EntityArrayResponseType = HttpResponse<IPonudePonudjaci[]>;
@@ -70,4 +70,7 @@ export class PonudePonudjaciService {
     }
     return ponudePonudjaciCollection;
   }
+}
+function getPonudePonudjaciIdentifier(ponudePonudjaci: IPonudePonudjaci): number {
+  throw new Error('Function not implemented.');
 }

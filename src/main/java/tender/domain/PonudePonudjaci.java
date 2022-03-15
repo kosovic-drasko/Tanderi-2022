@@ -9,7 +9,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * A PonudePonudjaci.
  */
 @Entity
-@Table(name = "ponude_ponudjaci")
+@Table(name = "view_ponude_ponudjaci")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class PonudePonudjaci implements Serializable {
 
@@ -24,7 +24,29 @@ public class PonudePonudjaci implements Serializable {
     @Column(name = "sifra_postupka")
     private Integer sifraPostupka;
 
+    @Column(name = "sifra_ponude")
+    private Integer sifraPonude;
+
+    @Column(name = "naziv_ponudjaca")
+    private String nazivPonudjaca;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
+    public Integer getSifraPonude() {
+        return sifraPonude;
+    }
+
+    public void setSifraPonude(Integer sifraPonude) {
+        this.sifraPonude = sifraPonude;
+    }
+
+    public String getNazivPonudjaca() {
+        return nazivPonudjaca;
+    }
+
+    public void setNazivPonudjaca(String nazivPonudjaca) {
+        this.nazivPonudjaca = nazivPonudjaca;
+    }
 
     public Long getId() {
         return this.id;

@@ -14,8 +14,9 @@ export type EntityArrayResponseType = HttpResponse<IPonude[]>;
 export class PonudeService {
   public resourceUrlSifraPonude = this.applicationConfigService.getEndpointFor('api/ponude');
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/ponudes');
-  public resourceUrlPonudePonudjaci = this.applicationConfigService.getEndpointFor('api/ponudjaci_ponude');
+  public resourceUrlPonudePonudjaci = this.applicationConfigService.getEndpointFor('api/ponude_ponudjaci');
   public resourceUrlPonudedSifraPonude = this.applicationConfigService.getEndpointFor('api/ponude-sifra-ponude');
+
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
   findSiftraPostupak(sifra_postupka: number): any {
