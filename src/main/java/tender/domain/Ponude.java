@@ -50,11 +50,15 @@ public class Ponude implements Serializable {
     @Column(name = "sifra_ponudjaca")
     private Integer sifraPonudjaca;
 
+    @Column(name = "jedinicna_cijena")
+    private Double jedinicnaCijena;
+
     @Column(name = "selected")
     private Boolean selected;
 
-    @Column(name = "jedinicna_cijena")
-    private Double jedinicnaCijena;
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Ponudjaci ponudjaci;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -175,6 +179,19 @@ public class Ponude implements Serializable {
         this.sifraPonudjaca = sifraPonudjaca;
     }
 
+    public Double getJedinicnaCijena() {
+        return this.jedinicnaCijena;
+    }
+
+    public Ponude jedinicnaCijena(Double jedinicnaCijena) {
+        this.setJedinicnaCijena(jedinicnaCijena);
+        return this;
+    }
+
+    public void setJedinicnaCijena(Double jedinicnaCijena) {
+        this.jedinicnaCijena = jedinicnaCijena;
+    }
+
     public Boolean getSelected() {
         return this.selected;
     }
@@ -188,17 +205,17 @@ public class Ponude implements Serializable {
         this.selected = selected;
     }
 
-    public Double getJedinicnaCijena() {
-        return this.jedinicnaCijena;
+    public Ponudjaci getPonudjaci() {
+        return this.ponudjaci;
     }
 
-    public Ponude jedinicnaCijena(Double jedinicnaCijena) {
-        this.setJedinicnaCijena(jedinicnaCijena);
+    public void setPonudjaci(Ponudjaci ponudjaci) {
+        this.ponudjaci = ponudjaci;
+    }
+
+    public Ponude ponudjaci(Ponudjaci ponudjaci) {
+        this.setPonudjaci(ponudjaci);
         return this;
-    }
-
-    public void setJedinicnaCijena(Double jedinicnaCijena) {
-        this.jedinicnaCijena = jedinicnaCijena;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -233,8 +250,8 @@ public class Ponude implements Serializable {
             ", ponudjenaVrijednost=" + getPonudjenaVrijednost() +
             ", rokIsporuke=" + getRokIsporuke() +
             ", sifraPonudjaca=" + getSifraPonudjaca() +
-            ", selected='" + getSelected() + "'" +
             ", jedinicnaCijena=" + getJedinicnaCijena() +
+            ", selected='" + getSelected() + "'" +
             "}";
     }
 }

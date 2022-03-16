@@ -25,6 +25,7 @@ export class PonudeUpdateComponent implements OnInit {
     ponudjenaVrijednost: [null, [Validators.required]],
     rokIsporuke: [],
     sifraPonudjaca: [],
+    // nazivPonudjaca: [],
     selected: [],
     jedinicnaCijena: [],
   });
@@ -81,6 +82,7 @@ export class PonudeUpdateComponent implements OnInit {
       ponudjenaVrijednost: ponude.ponudjenaVrijednost,
       rokIsporuke: ponude.rokIsporuke,
       sifraPonudjaca: ponude.sifraPonudjaca,
+      // nazivPonudjaca: ponude.ponudjaci?.nazivPonudjaca,
       selected: ponude.selected,
       jedinicnaCijena: ponude.jedinicnaCijena,
     });

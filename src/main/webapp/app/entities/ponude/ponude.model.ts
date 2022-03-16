@@ -1,3 +1,5 @@
+import { IPonudjaci } from '../ponudjaci1/ponudjaci.model';
+
 export interface IPonude {
   id?: number;
   sifraPostupka?: number;
@@ -10,6 +12,7 @@ export interface IPonude {
   sifraPonudjaca?: number | null;
   selected?: boolean | null;
   jedinicnaCijena?: number | null;
+  ponudjaci?: IPonudjaci | null;
 }
 
 export class Ponude implements IPonude {
@@ -24,7 +27,8 @@ export class Ponude implements IPonude {
     public rokIsporuke?: number | null,
     public sifraPonudjaca?: number | null,
     public selected?: boolean | null,
-    public jedinicnaCijena?: number | null
+    public jedinicnaCijena?: number | null,
+    public ponudjaci?: IPonudjaci | null
   ) {
     this.selected = this.selected ?? false;
   }

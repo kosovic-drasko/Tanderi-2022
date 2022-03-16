@@ -31,6 +31,7 @@ export class PonudeComponent implements AfterViewInit, OnChanges {
     'sifraPonude',
     'brojPartije',
     'sifra ponudjaca',
+    'naziv ponudjaca',
     'naziv proizvodjaca',
     'zasticeni naziv',
     'ponudjena vrijednost',
