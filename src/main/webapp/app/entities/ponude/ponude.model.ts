@@ -1,4 +1,4 @@
-import { IPonudjaci } from '../ponudjaci1/ponudjaci.model';
+import { IPonudjaci } from '../ponudjaci/ponudjaci.model';
 
 export interface IPonude {
   id?: number;
