@@ -7,8 +7,8 @@ import { finalize, map } from 'rxjs/operators';
 
 import { IPonude, Ponude } from '../ponude.model';
 import { PonudeService } from '../service/ponude.service';
-import { IPonudjaci } from '../../ponudjaci1/ponudjaci.model';
-import { PonudjaciService } from '../../ponudjaci1/service/ponudjaci.service';
+import { PonudjaciService } from '../../ponudjaci/service/ponudjaci.service';
+import { IPonudjaci } from '../../ponudjaci/ponudjaci.model';
 
 @Component({
   selector: 'jhi-ponude-update',
