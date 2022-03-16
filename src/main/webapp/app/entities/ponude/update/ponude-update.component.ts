@@ -3,10 +3,12 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
 
 import { IPonude, Ponude } from '../ponude.model';
 import { PonudeService } from '../service/ponude.service';
+import { IPonudjaci } from '../../ponudjaci1/ponudjaci.model';
+import { PonudjaciService } from '../../ponudjaci1/service/ponudjaci.service';
 
 @Component({
   selector: 'jhi-ponude-update',
@@ -14,7 +16,7 @@ import { PonudeService } from '../service/ponude.service';
 })
 export class PonudeUpdateComponent implements OnInit {
   isSaving = false;
-
+  ponudjacisCollection: IPonudjaci[] = [];
   editForm = this.fb.group({
     id: [],
     sifraPostupka: [null, [Validators.required]],
@@ -25,19 +27,36 @@ export class PonudeUpdateComponent implements OnInit {
     ponudjenaVrijednost: [null, [Validators.required]],
     rokIsporuke: [],
     sifraPonudjaca: [],
-    // nazivPonudjaca: [],
+    ponudjaci: [],
     selected: [],
     jedinicnaCijena: [],
   });
 
-  constructor(protected ponudeService: PonudeService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
+  constructor(
+    protected ponudeService: PonudeService,
+    protected activatedRoute: ActivatedRoute,
+    protected fb: FormBuilder,
+    protected ponudjaciService: PonudjaciService
+  ) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ ponude }) => {
       this.updateForm(ponude);
+
+      this.loadRelationshipsOptions();
     });
   }
-
+  protected loadRelationshipsOptions(): void {
+    this.ponudjaciService
+      .query({ filter: 'ponude-is-null' })
+      .pipe(map((res: HttpResponse<IPonudjaci[]>) => res.body ?? []))
+      .pipe(
+        map((ponudjacis: IPonudjaci[]) =>
+          this.ponudjaciService.addPonudjaciToCollectionIfMissing(ponudjacis, this.editForm.get('ponudjaci')!.value)
+        )
+      )
+      .subscribe((ponudjacis: IPonudjaci[]) => (this.ponudjacisCollection = ponudjacis));
+  }
   previousState(): void {
     window.history.back();
   }
@@ -82,7 +101,7 @@ export class PonudeUpdateComponent implements OnInit {
       ponudjenaVrijednost: ponude.ponudjenaVrijednost,
       rokIsporuke: ponude.rokIsporuke,
       sifraPonudjaca: ponude.sifraPonudjaca,
-      // nazivPonudjaca: ponude.ponudjaci?.nazivPonudjaca,
+      ponudjaci: ponude.ponudjaci,
       selected: ponude.selected,
       jedinicnaCijena: ponude.jedinicnaCijena,
     });
@@ -100,6 +119,7 @@ export class PonudeUpdateComponent implements OnInit {
       ponudjenaVrijednost: this.editForm.get(['ponudjenaVrijednost'])!.value,
       rokIsporuke: this.editForm.get(['rokIsporuke'])!.value,
       sifraPonudjaca: this.editForm.get(['sifraPonudjaca'])!.value,
+      ponudjaci: this.editForm.get(['ponudjaci'])!.value,
       selected: this.editForm.get(['selected'])!.value,
       jedinicnaCijena: this.editForm.get(['jedinicnaCijena'])!.value,
     };
