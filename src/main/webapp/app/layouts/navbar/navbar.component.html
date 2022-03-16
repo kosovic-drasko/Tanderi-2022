@@ -1,9 +1,11 @@
 <nav data-cy="navbar" class="navbar navbar-dark navbar-expand-md bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
-      <span class="logo-img"></span>
-      <span jhiTranslate="global.title" class="navbar-title">Tender</span>
-      <span class="navbar-version">{{ version }}</span>
+      <span>
+        <fa-icon icon="home"></fa-icon>
+        <!--            <span >Pocetak</span>-->
+      </span>
+      <!--      <span class="navbar-version">{{ version }}</span>-->
     </a>
     <a
       class="navbar-toggler d-lg-none"
@@ -28,7 +30,7 @@
         <!--          </a>-->
         <!--        </li>-->
         <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-          <a class="nav-link" routerLink="/postupci">
+          <a *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']" class="nav-link" routerLink="/postupci">
             <span>
               <fa-icon icon="th-list"></fa-icon>
               <span>Postupci</span>
@@ -147,7 +149,13 @@
           </ul>
         </li>
         <li ngbDropdown class="nav-item dropdown pointer" display="dynamic" *ngIf="languages && languages.length > 1">
-          <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="languagesnavBarDropdown">
+          <a
+            *jhiHasAnyAuthority="'ROLE_ADMIN'"
+            class="nav-link dropdown-toggle"
+            ngbDropdownToggle
+            href="javascript:void(0);"
+            id="languagesnavBarDropdown"
+          >
             <span>
               <fa-icon icon="flag"></fa-icon>
               <span jhiTranslate="global.menu.language">Language</span>
